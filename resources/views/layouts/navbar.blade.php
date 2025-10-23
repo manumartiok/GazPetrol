@@ -18,15 +18,11 @@
 
     <!-- Dropdown Menu -->
     <div id="userMenu" class="user-menu bg-white border border-gray-200 rounded-lg shadow-lg mt-2 min-w-48">
-      <a href="" class="block px-4 py-3 hover:bg-gray-100 transition border-b border-gray-200">
+      <a href="{{route('adm.perfil')}}" class="block px-4 py-3 hover:bg-gray-100 transition border-b border-gray-200">
         <i class="fas fa-user mr-2 text-gray-600"></i>
         <span>Mi Perfil</span>
       </a>
-      <a href="" class="block px-4 py-3 hover:bg-gray-100 transition border-b border-gray-200">
-        <i class="fas fa-cog mr-2 text-gray-600"></i>
-        <span>Configuración</span>
-      </a>
-      <form method="POST" action="" class="m-0">
+      <form method="POST" action="{{ route('logout') }}" class="m-0">
         @csrf
         <button type="submit" class="w-full text-left block px-4 py-3 hover:bg-red-50 transition text-red-600 border-t border-gray-200">
           <i class="fas fa-sign-out-alt mr-2"></i>

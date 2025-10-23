@@ -13,8 +13,10 @@
   {{-- font awesome  --}}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Vue -->
-   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <!-- Vue -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+   
 
    <script src="{{ asset('js/vue.js') }}" defer></script>
   <style>
@@ -45,6 +47,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
   <script>
     $(document).ready(function() {
       // Toggle Sidebar
@@ -122,6 +125,51 @@ function activarOrdenDragDrop(selector, url) {
         }
     });
 }
+
+// CKEditor configuración completa
+document.addEventListener("DOMContentLoaded", function() {
+  const editors = document.querySelectorAll('.ckeditor');
+
+  editors.forEach(textarea => {
+    const height = textarea.dataset.height || '300'; // altura por defecto 300px
+    ClassicEditor.create(textarea, {
+      toolbar: [
+        'heading', '|',
+        'bold', 'italic', 'underline', 'strikethrough', '|',
+        'fontFamily', 'fontSize', 'fontColor', 'fontBackgroundColor', '|',
+        'bulletedList', 'numberedList', '|',
+        'alignment', '|',
+        'link', 'blockQuote', 'undo', 'redo'
+      ],
+      fontSize: {
+        options: [ '10px', '12px', '14px', '16px', '18px', '20px', '24px', '28px', '32px' ],
+        supportAllValues: true
+      },
+      fontFamily: {
+        options: [
+          'default',
+          'Arial, Helvetica, sans-serif',
+          'Courier New, Courier, monospace',
+          'Georgia, serif',
+          'Lucida Sans Unicode, Lucida Grande, sans-serif',
+          'Tahoma, Geneva, sans-serif',
+          'Times New Roman, Times, serif',
+          'Verdana, Geneva, sans-serif'
+        ]
+      },
+      fontColor: { columns: 5 },
+      fontBackgroundColor: { columns: 5 }
+    })
+    .then(editor => {
+      const editable = editor.ui.view.editable.element;
+      editable.style.minHeight = height + 'px';
+      editable.style.height = 'auto';
+      editable.style.overflowY = 'auto';
+      console.log('CKEditor inicializado', editor);
+    })
+    .catch(error => console.error(error));
+  });
+});
   </script>
 </body>
 </html>

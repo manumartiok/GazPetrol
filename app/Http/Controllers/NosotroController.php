@@ -165,11 +165,4 @@ public function update(Request $request)
         return redirect()->route('adm.nosotros', ['nosotro_id' => $nosotros->id]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Nosotro $nosotro)
-    {
-        //
-    }
 }

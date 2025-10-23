@@ -38,25 +38,26 @@ class ClienteBannerController extends Controller
             $clientes_banners->texto=$request->texto;
 
          // Verificar si se subió una nueva imagen
-         if ($request->hasFile('foto')) {
+        if ($request->hasFile('foto')) {
 
-        // 🧹 Borrar la foto anterior (si existe)
+        // Borrar la foto anterior (si existe)
         if (!empty($clientes_banners->foto)) {
-            // Convertir la URL tipo "/storage/images/xxx.jpg" a ruta real
-            $oldPath = str_replace('/storage/', 'public/', $clientes_banners->foto);
-            if (Storage::exists($oldPath)) {
-                Storage::delete($oldPath);
+            // Convertir la URL pública a path relativo del disco
+            $oldPath = str_replace('/storage/', '', $clientes_banners->foto);
+            if (Storage::disk('public')->exists($oldPath)) {
+                Storage::disk('public')->delete($oldPath);
             }
         }
 
-        // 📸 Guardar la nueva foto
+        // Guardar la nueva foto
         $file = $request->file('foto');
         $name = time() . '.' . $file->getClientOriginalName();
-        $filePath = 'public/images/' . $name;
-        Storage::put($filePath, file_get_contents($file));
 
-        // Guardar la ruta accesible públicamente
-        $clientes_banners->foto = Storage::url($filePath);
+        // Guardar en storage/app/public/images
+        $path = $file->storeAs('images', $name, 'public');
+
+        // Guardar la URL pública en la DB
+        $clientes_banners->foto = Storage::url($path);
     }
         $clientes_banners->save();
 

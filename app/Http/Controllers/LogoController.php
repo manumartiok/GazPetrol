@@ -11,74 +11,49 @@ class LogoController extends Controller
     /**
      * Display a listing of the resource.
      */
-   public function show($logos_id=null)
-
+    public function show($logos_id = null)
     {
-        
-        $logos=Logo::first();
-        
-        if(!$logos){
-            $logos=new Logo();
-        }
-        return view('content.admin.logo', ['logo'=>$logos]);
+        $logos = Logo::first() ?? new Logo();
+        return view('content.admin.logo', ['logo' => $logos]);
     }
-
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request)
     {
-        $logos= Logo::find($request->logos_id);
-        
-        if(!$logos){
-            $logos=new Logo();
-        }
+        $logos = Logo::find($request->logos_id) ?? new Logo();
 
-         // Verificar si se subió una nueva imagen
-         if ($request->hasFile('foto_nav')) {
-
-        // 🧹 Borrar la foto anterior (si existe)
-        if (!empty($logos->foto_nav)) {
-            // Convertir la URL tipo "/storage/images/xxx.jpg" a ruta real
-            $oldPath = str_replace('/storage/', 'public/', $logos->foto_nav);
-            if (Storage::exists($oldPath)) {
-                Storage::delete($oldPath);
+        // Manejo de foto_nav
+        if ($request->hasFile('foto_nav')) {
+            if (!empty($logos->foto_nav)) {
+                $oldPath = str_replace('/storage/', '', $logos->foto_nav);
+                if (Storage::disk('public')->exists($oldPath)) {
+                    Storage::disk('public')->delete($oldPath);
+                }
             }
+
+            $file = $request->file('foto_nav');
+            $name = time() . '.' . $file->getClientOriginalName();
+            $path = $file->storeAs('images', $name, 'public');
+            $logos->foto_nav = Storage::url($path);
         }
 
-        // 📸 Guardar la nueva foto
-        $file = $request->file('foto_nav');
-        $name = time() . '.' . $file->getClientOriginalName();
-        $filePath = 'public/images/' . $name;
-        Storage::put($filePath, file_get_contents($file));
-
-        // Guardar la ruta accesible públicamente
-        $logos->foto_nav = Storage::url($filePath);
-    }
-
-
-         // Verificar si se subió una nueva imagen
-         if ($request->hasFile('foto_footer')) {
-
-        // 🧹 Borrar la foto anterior (si existe)
-        if (!empty($logos->foto_footer)) {
-            // Convertir la URL tipo "/storage/images/xxx.jpg" a ruta real
-            $oldPath = str_replace('/storage/', 'public/', $logos->foto_footer);
-            if (Storage::exists($oldPath)) {
-                Storage::delete($oldPath);
+        // Manejo de foto_footer
+        if ($request->hasFile('foto_footer')) {
+            if (!empty($logos->foto_footer)) {
+                $oldPath = str_replace('/storage/', '', $logos->foto_footer);
+                if (Storage::disk('public')->exists($oldPath)) {
+                    Storage::disk('public')->delete($oldPath);
+                }
             }
+
+            $file = $request->file('foto_footer');
+            $name = time() . '.' . $file->getClientOriginalName();
+            $path = $file->storeAs('images', $name, 'public');
+            $logos->foto_footer = Storage::url($path);
         }
 
-        // 📸 Guardar la nueva foto
-        $file = $request->file('foto_footer');
-        $name = time() . '.' . $file->getClientOriginalName();
-        $filePath = 'public/images/' . $name;
-        Storage::put($filePath, file_get_contents($file));
-
-        // Guardar la ruta accesible públicamente
-        $logos->foto_footer = Storage::url($filePath);
-    }
         $logos->save();
 
         return redirect()->route('adm.logo', ['logo_id' => $logos->id]);

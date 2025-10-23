@@ -47,9 +47,11 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="block text-gray-700 font-medium mb-2" for="descripcion">Descripcion</label>
-                        <input type="text" id="descripcion" name="descripcion" placeholder="¿Quiénes somos?" value="{{ $home->descripcion ?? '' }}"
-                            class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <label class="block text-gray-700 font-medium mb-2" for="descripcion">Descripción</label>
+                        <textarea id="descripcion" name="descripcion" placeholder="Descripcion"  
+                            class="ckeditor w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            {{ $home->descripcion ?? '' }}
+                        </textarea>
                     </div>
 
                     <div class="mb-4">
@@ -76,6 +78,7 @@
                             class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
                 </div>
+                <hr class="my-4">
                 <button type="submit" class="border rounded p-4">Actualizar</button>
             </form>
         </div>            
