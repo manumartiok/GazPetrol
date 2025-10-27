@@ -10,7 +10,7 @@ class HomeBannerController extends Controller
 {
     public function index()
     {
-        $home_banners = HomeBanner::all();
+        $home_banners = HomeBanner::orderBy('orden')->get();
         return view('content.admin.home-banner', ['home_banner' => $home_banners]);
     }
 
@@ -101,4 +101,13 @@ class HomeBannerController extends Controller
         $home_banners->save();
         return redirect()->route('adm.home-ban');
     }
+
+            public function reordenar(Request $request)
+    {
+        foreach ($request->orden as $home_banners) {
+            \App\Models\HomeBanner::where('id', $home_banners['id'])->update(['orden' => $home_banners['orden']]);
+        }
+
+        return response()->json(['success' => true]);
+    }   
 }

@@ -53,6 +53,11 @@
                         <label class="block text-gray-700 font-medium mb-2" for="detalle">Detalle</label>
                         <input type="text" id="detalle" name="detalle" placeholder="Detalle" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-2" for="ficha_tecnica">Ficha Técnica</label>
+                        <input type="file" name="ficha_tecnica" id="ficha_tecnica" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                    </div>
                 </div>
                 <button type="submit" class="border rounded p-4">Actualizar</button>
             </form>

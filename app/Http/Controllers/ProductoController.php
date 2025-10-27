@@ -11,7 +11,7 @@ class ProductoController extends Controller
 {
     public function index()
     {
-        $productos = Producto::all();
+        $productos = Producto::orderBy('orden')->get();
         return view('content.admin.producto', ['producto' => $productos]);
     }
 
@@ -42,6 +42,21 @@ class ProductoController extends Controller
             $name = time() . '.' . $file->getClientOriginalName();
             $path = $file->storeAs('images', $name, 'public');
             $productos->foto_producto = Storage::url($path);
+        }
+
+        // Manejo de ficha técnica
+        if ($request->hasFile('ficha_tecnica')) {
+            if (!empty($productos->ficha_tecnica)) {
+                $oldPath = str_replace('/storage/', '', $productos->ficha_tecnica);
+                if (Storage::disk('public')->exists($oldPath)) {
+                    Storage::disk('public')->delete($oldPath);
+                }
+            }
+
+            $file = $request->file('ficha_tecnica');
+            $name = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('fichas', $name, 'public');
+            $productos->ficha_tecnica = Storage::url($path);
         }
 
         $productos->save();
@@ -78,6 +93,21 @@ class ProductoController extends Controller
             $productos->foto_producto = Storage::url($path);
         }
 
+        // Manejo de ficha técnica
+        if ($request->hasFile('ficha_tecnica')) {
+            if (!empty($productos->ficha_tecnica)) {
+                $oldPath = str_replace('/storage/', '', $productos->ficha_tecnica);
+                if (Storage::disk('public')->exists($oldPath)) {
+                    Storage::disk('public')->delete($oldPath);
+                }
+            }
+
+        $file = $request->file('ficha_tecnica');
+        $name = time() . '_' . $file->getClientOriginalName();
+        $path = $file->storeAs('fichas', $name, 'public');
+        $productos->ficha_tecnica = Storage::url($path);
+    }
+
         $productos->save();
         return redirect()->route('adm.productos', ['producto' => $productos->id]);
     }
@@ -106,4 +136,13 @@ class ProductoController extends Controller
         $productos->save();
         return redirect()->route('adm.productos');
     }
+
+         public function reordenar(Request $request)
+    {
+        foreach ($request->orden as $productos) {
+            \App\Models\Producto::where('id', $productos['id'])->update(['orden' => $productos['orden']]);
+        }
+
+        return response()->json(['success' => true]);
+    }    
 }

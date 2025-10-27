@@ -10,7 +10,7 @@ class ComercializacionController extends Controller
 {
     public function index()
     {
-        $comercios = Comercializacion::all();
+        $comercios = Comercializacion::orderBy('orden')->get();;
         return view('content.admin.comercializacion', ['comercio' => $comercios]);
     }
 
@@ -101,4 +101,15 @@ class ComercializacionController extends Controller
         $comercios->save();
         return redirect()->route('adm.comercializacion');
     }
+
+    
+        public function reordenar(Request $request)
+    {
+        foreach ($request->orden as $comercios) {
+            \App\Models\Comercializacion::where('id', $comercios['id'])->update(['orden' => $comercios['orden']]);
+        }
+
+        return response()->json(['success' => true]);
+    }      
+
 }

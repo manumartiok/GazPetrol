@@ -10,7 +10,7 @@ class InstitucionalController extends Controller
 {
     public function index()
     {
-        $institucionales = Institucional::all();
+        $institucionales = Institucional::orderBy('orden')->get();
         return view('content.admin.institucional', ['institucional' => $institucionales]);
     }
 
@@ -110,4 +110,14 @@ class InstitucionalController extends Controller
 
         return redirect()->route('adm.institucional');
     }
+
+    
+          public function reordenar(Request $request)
+    {
+        foreach ($request->orden as $institucionales) {
+            \App\Models\Institucional::where('id', $institucionales['id'])->update(['orden' => $institucionales['orden']]);
+        }
+
+        return response()->json(['success' => true]);
+    }  
 }

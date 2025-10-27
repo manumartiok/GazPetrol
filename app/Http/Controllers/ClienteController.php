@@ -10,7 +10,7 @@ class ClienteController extends Controller
 {
     public function index()
     {
-        $clientes = Cliente::all();
+        $clientes = Cliente::orderBy('orden')->get();
         return view('content.admin.clientes', ['cliente' => $clientes]);
     }
 
@@ -108,4 +108,13 @@ class ClienteController extends Controller
         $clientes->save();
         return redirect()->route('adm.clientes');
     }
+
+          public function reordenar(Request $request)
+    {
+        foreach ($request->orden as $clientes) {
+            \App\Models\Cliente::where('id', $clientes['id'])->update(['orden' => $clientes['orden']]);
+        }
+
+        return response()->json(['success' => true]);
+    }  
 }

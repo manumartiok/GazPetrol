@@ -65,7 +65,25 @@
                         <input type="text" id="detalle" name="detalle" placeholder="Detalle" value="{{ $producto->detalle ?? '' }}"
                             class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
-                </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-2" for="ficha_tecnica">Ficha Técnica</label>
+
+                        @if (!empty($producto->ficha_tecnica))
+                            {{-- Link para abrir la ficha --}}
+                            <a href="{{ asset($producto->ficha_tecnica) }}" target="_blank" class="text-blue-600 hover:underline mb-1 block">
+                                Ver ficha técnica actual
+                            </a>
+
+                            {{-- Mostrar nombre del archivo --}}
+                            <p class="text-gray-700 mb-2">
+                                Archivo: {{ basename($producto->ficha_tecnica) }}
+                            </p>
+                        @endif
+
+                        <input type="file" name="ficha_tecnica" id="ficha_tecnica"
+                            class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                    </div>
                 <button type="submit" class="border rounded p-4">Actualizar</button>
             </form>
         <hr class="my-10">

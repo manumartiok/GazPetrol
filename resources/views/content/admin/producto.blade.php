@@ -30,7 +30,7 @@
                     </tr>
                 </thead>
 
-                <tbody class="text-gray-600">
+                <tbody id="galeria-fotos" class="text-gray-600">
 
                     @php $index = 0; @endphp
 
@@ -38,13 +38,13 @@
                         @php $index++; $groupId = 'grupo_' . $index; @endphp
 
                         <!-- Encabezado clickeable -->
-                        <tr class="bg-light cursor-pointer" onclick="toggleGrupo('{{ $groupId }}')">
+                        <tr class="bg-light cursor-pointer no-ordena" onclick="toggleGrupo('{{ $groupId }}')">
                             <td colspan="6" class="px-4 py-3"><strong>{{ $categoriaNombre }}</strong></td>
                         </tr>
 
                         {{-- Productos ocultos inicialmente --}}
                         @foreach($productos as $producto)
-                            <tr class="border-t hover:bg-gray-50 grupo-producto {{ $groupId }}" style="display: none;">
+                            <tr class="border-t hover:bg-gray-50 grupo-producto {{ $groupId }} cursor-move" style="display: none;" data-id="{{$producto->id}}">
                                 <td class="px-4 py-3 text-center">{{$producto->orden}}</td>
                                 <td class="px-4 py-3 w-64 max-w-64 truncate text-center">{{$producto->nombre}}</td>
                                 <td class="px-4 py-3 text-center">
@@ -86,6 +86,10 @@ function toggleGrupo(groupClass) {
         row.style.display = row.style.display === 'none' ? 'table-row' : 'none';
     });
 }
+
+ document.addEventListener('DOMContentLoaded', function() {
+            activarOrdenDragDrop('#galeria-fotos', '{{ route('adm.productos-reordenar') }}');
+        });
 </script>
 
 @endsection

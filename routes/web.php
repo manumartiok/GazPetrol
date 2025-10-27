@@ -29,17 +29,7 @@ use App\Http\Controllers\RedController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\MetadatoController;
 
-
-//WEB
-Route::get('/', function () {
-    return view('content.web.home');
-});
-
 //ADMIN
-Route::get('/admin/dashboard', function () {
-    return view('content.admin.admin-dashboard');})->name('adm.dashboard');
-
-
 Route::middleware(AdminAuth::class)->group(function () {
 
     //ADMIN
@@ -58,6 +48,7 @@ Route::middleware(AdminAuth::class)->group(function () {
     Route::post('/admin/home/banner/update', [HomeBannerController::class,'update'])->name('adm.home-ban-update');
     Route::get('/admin/home/banner/destroy/{home_banners_id}', [HomeBannerController::class,'destroy'])->name('adm.home-ban-destroy');
     Route::get('/admin/home/banner/switch/{home_banners_id}', [HomeBannerController::class,'switch'])->name('adm.home-ban-switch');
+    Route::post('/admin/home-ban/reordenar', [HomeBannerController::class, 'reordenar'])->name('adm.home-ban-reordenar');
 
     //home contenido
     Route::get('/admin/home', [HomeController::class, 'show'])->name('adm.home');
@@ -81,6 +72,7 @@ Route::middleware(AdminAuth::class)->group(function () {
     Route::post('/admin/comercio/update', [ComercializacionController::class,'update'])->name('adm.comercializacion-update');
     Route::get('/admin/comercio/destroy/{comercio_id}', [ComercializacionController::class,'destroy'])->name('adm.comercializacion-destroy');
     Route::get('/admin/comercio/switch/{comercio_id}', [ComercializacionController::class,'switch'])->name('adm.comercializacion-switch');
+    Route::post('/admin/comercializacion/reordenar', [ComercializacionController::class, 'reordenar'])->name('adm.comercializacion-reordenar');
 
 
     //comercializacion banner
@@ -109,6 +101,8 @@ Route::middleware(AdminAuth::class)->group(function () {
     Route::post('/admin/productos/update', [ProductoController::class,'update'])->name('adm.productos-update');
     Route::get('/admin/productos/destroy/{producto_id}', [ProductoController::class,'destroy'])->name('adm.productos-destroy');
     Route::get('/admin/productos/switch/{producto_id}', [ProductoController::class,'switch'])->name('adm.productos-switch');
+    Route::post('/admin/productos/reordenar', [ProductoController::class, 'reordenar'])->name('adm.productos-reordenar');
+
 
     //productos fotos
     Route::post('/admin/productos_foto/store', [ProductoFotoController::class,'store'])->name('adm.productos-fotos-store');
@@ -125,6 +119,8 @@ Route::middleware(AdminAuth::class)->group(function () {
     Route::get('/admin/cliente/destroy/{cliente_id}', [ClienteController::class,'destroy'])->name('adm.clientes-destroy');
     Route::get('/admin/cliente/switch/{cliente_id}', [ClienteController::class,'switch'])->name('adm.clientes-switch');
     Route::get('/admin/cliente/destacado/{cliente_id}', [ClienteController::class,'destacado'])->name('adm.clientes-destacado');
+    Route::post('/admin/clientes/reordenar', [ClienteController::class, 'reordenar'])->name('adm.clientes-reordenar');
+
 
 
     //clientes banner
@@ -140,6 +136,7 @@ Route::middleware(AdminAuth::class)->group(function () {
     Route::get('/admin/institucional/destroy/{cliente_id}', [InstitucionalController::class,'destroy'])->name('adm.institucional-destroy');
     Route::get('/admin/institucional/switch/{cliente_id}', [InstitucionalController::class,'switch'])->name('adm.institucional-switch');
     Route::get('/admin/institucional/destacado/{cliente_id}', [InstitucionalController::class,'destacado'])->name('adm.institucional-destacado');
+    Route::post('/admin/institucional/reordenar', [InstitucionalController::class, 'reordenar'])->name('adm.institucional-reordenar');
 
     //institucional banner
     Route::get('/admin/institucional/banner', [InstitucionalBannerController::class, 'show'])->name('adm.institucional-ban');
@@ -173,6 +170,7 @@ Route::middleware(AdminAuth::class)->group(function () {
     Route::post('/admin/redes/update', [RedController::class,'update'])->name('adm.redes-update');
     Route::get('/admin/redes/destroy/{red_id}', [RedController::class,'destroy'])->name('adm.redes-destroy');
     Route::get('/admin/redes/switch/{red_id}', [RedController::class,'switch'])->name('adm.redes-switch');
+    Route::post('/admin/redes/reordenar', [RedController::class, 'reordenar'])->name('adm.redes-reordenar');
 
     //usuarios
     Route::get('/admin/usuarios', [UsuarioController::class,'index'])->name('adm.usuarios');
@@ -199,6 +197,32 @@ Route::post('/admin/login', [AuthController::class,'login'])->name('login.post')
 Route::post('/admin/logout', [AuthController::class,'logout'])->name('logout');
 Route::post('/admin/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.email');
 
+
+
+//WEB
+Route::get('/', function () {
+    return view('content.web.home');})->name('home');
+
+Route::get('/nosotros', function () {
+    return view('content.web.nosotros');})->name('nosotros');
+
+Route::get('/comercializacion', function () {
+    return view('content.web.comercializacion');})->name('comercializacion');
+
+Route::get('/productos', function () {
+    return view('content.web.productos');})->name('productos');
+
+Route::get('/clientes', function () {
+    return view('content.web.clientes');})->name('clientes');
+
+Route::get('/institucional', function () {
+    return view('content.web.institucional');})->name('institucional');
+
+Route::get('/contacto', function () {
+    return view('content.web.contacto');})->name('contacto');
+
+Route::get('/solicitud', function () {
+    return view('content.web.solicitud');})->name('solicitud');
 
 
 

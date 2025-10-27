@@ -13,7 +13,7 @@
    <div class="p-4">
         <div class="overflow-x-auto rounded-2xl shadow">
             <div class="flex justify-end px-6 py-3 border rounded">
-                <a href="{{route('adm.home-ban-creador')}}" class="hover:text-gray-400 hover:scale-105 transition-transform duration-300"><i class="fa-solid fa-plus"></i></a>
+                <a href="{{route('adm.comercializacion-creador')}}" class="hover:text-gray-400 hover:scale-105 transition-transform duration-300"><i class="fa-solid fa-plus"></i></a>
             </div>
             <table class="min-w-full border border-gray-200 bg-white">
             <thead class="bg-gray-100">
@@ -27,9 +27,9 @@
                 </tr>
             </thead>
 
-            <tbody class="text-gray-600">
+            <tbody id="galeria-fotos"class="text-gray-600">
                 @foreach($comercio as $comercio)
-                <tr class="border-t hover:bg-gray-50">
+                <tr class="border-t hover:bg-gray-50 cursor-move" data-id="{{$comercio->id}}">
                 <td class="px-4 py-3">{{$comercio->orden}}</td>
                 <td class="px-4 py-3">
                     @if ($comercio->foto)
@@ -58,4 +58,9 @@
             </table>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            activarOrdenDragDrop('#galeria-fotos', '{{ route('adm.comercializacion-reordenar') }}');
+        });
+</script>
 @endsection

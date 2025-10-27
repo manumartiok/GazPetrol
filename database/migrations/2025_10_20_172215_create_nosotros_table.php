@@ -13,20 +13,22 @@ return new class extends Migration
     {
         Schema::create('nosotros', function (Blueprint $table) {
             $table->id();
-            $table->string('video');
-            $table->string('foto');
-            $table->string('texto_chico1');
-            $table->string('texto_grande2');
-            $table->text('descripcion');
-            $table->string('icono1');
-            $table->string('nombre_icono1');
-            $table->text('texto_icono1');
-            $table->string('icono2');
-            $table->string('nombre_icono2');
-            $table->text('texto_icono2');
-            $table->string('icono3');
-            $table->string('nombre_icono3');
-            $table->text('texto_icono3');
+            $table->string('video')->nullable();
+            $table->string('foto')->nullable();
+            $table->string('texto_chico1')->nullable();
+            $table->string('texto_grande1')->nullable();
+            $table->text('descripcion')->nullable();
+            $table->string('texto_chico2')->nullable();
+            $table->string('texto_grande2')->nullable();
+            $table->string('icono1')->nullable();
+            $table->string('nombre_icono1')->nullable();
+            $table->text('texto_icono1')->nullable();
+            $table->string('icono2')->nullable();
+            $table->string('nombre_icono2')->nullable();
+            $table->text('texto_icono2')->nullable();
+            $table->string('icono3')->nullable();
+            $table->string('nombre_icono3')->nullable();
+            $table->text('texto_icono3')->nullable();
 
             $table->timestamps();
         });

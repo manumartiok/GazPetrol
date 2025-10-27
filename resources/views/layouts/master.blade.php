@@ -11,14 +11,16 @@
   {{-- tailwind  --}}
   <script src="https://cdn.tailwindcss.com"></script>
   {{-- font awesome  --}}
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  {{-- Css --}}
+  <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
 
   <!-- Vue -->
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-   
 
    <script src="{{ asset('js/vue.js') }}" defer></script>
+   <script src="{{ asset('js/ckeditor-custom.js') }}" defer></script>
   <style>
     .sidebar-transition {
       transition: all 0.3s ease-in-out;
@@ -36,6 +38,7 @@
   </style>
 </head>
 <body class="bg-gray-100">
+  
   <div class="flex h-screen">
     @include('layouts.sidebar')
     <div class="flex-1 flex flex-col">
@@ -47,7 +50,6 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
   <script>
     $(document).ready(function() {
       // Toggle Sidebar
@@ -94,22 +96,23 @@ function activarOrdenDragDrop(selector, url) {
     Sortable.create(tbody, {
         animation: 150,
         handle: '.cursor-move',
+        draggable: 'tr', // seguimos dejando todas las filas arrastrables
         onEnd: function () {
             let orden = [];
 
-            document.querySelectorAll(`${selector} tr`).forEach((fila, index) => {
-                const letra = String.fromCharCode(65 + index); // A, B, C...
-                const nuevaLetra = letra + letra; // AA, BB, CC...
+            // Solo actualizamos las filas que NO sean encabezados de categoría
+         tbody.querySelectorAll('tr:not(.no-ordena)').forEach((fila, index) => {
+              const letra = String.fromCharCode(65 + index); // A, B, C...
+              const nuevaLetra = letra + letra; // AA, BB, CC...
 
-                // actualizar la celda visualmente
-                const celdaOrden = fila.querySelector('td:first-child');
-                if (celdaOrden) celdaOrden.textContent = nuevaLetra;
+              const celdaOrden = fila.querySelector('td:first-child');
+              if (celdaOrden) celdaOrden.textContent = nuevaLetra;
 
-                orden.push({
-                    id: fila.dataset.id,
-                    orden: nuevaLetra
-                });
-            });
+              orden.push({
+                  id: fila.dataset.id,
+                  orden: nuevaLetra
+              });
+          });
 
             fetch(url, {
                 method: 'POST',
@@ -128,47 +131,19 @@ function activarOrdenDragDrop(selector, url) {
 
 // CKEditor configuración completa
 document.addEventListener("DOMContentLoaded", function() {
-  const editors = document.querySelectorAll('.ckeditor');
+    const editors = document.querySelectorAll('.ckeditor');
 
-  editors.forEach(textarea => {
-    const height = textarea.dataset.height || '300'; // altura por defecto 300px
-    ClassicEditor.create(textarea, {
-      toolbar: [
-        'heading', '|',
-        'bold', 'italic', 'underline', 'strikethrough', '|',
-        'fontFamily', 'fontSize', 'fontColor', 'fontBackgroundColor', '|',
-        'bulletedList', 'numberedList', '|',
-        'alignment', '|',
-        'link', 'blockQuote', 'undo', 'redo'
-      ],
-      fontSize: {
-        options: [ '10px', '12px', '14px', '16px', '18px', '20px', '24px', '28px', '32px' ],
-        supportAllValues: true
-      },
-      fontFamily: {
-        options: [
-          'default',
-          'Arial, Helvetica, sans-serif',
-          'Courier New, Courier, monospace',
-          'Georgia, serif',
-          'Lucida Sans Unicode, Lucida Grande, sans-serif',
-          'Tahoma, Geneva, sans-serif',
-          'Times New Roman, Times, serif',
-          'Verdana, Geneva, sans-serif'
-        ]
-      },
-      fontColor: { columns: 5 },
-      fontBackgroundColor: { columns: 5 }
-    })
-    .then(editor => {
-      const editable = editor.ui.view.editable.element;
-      editable.style.minHeight = height + 'px';
-      editable.style.height = 'auto';
-      editable.style.overflowY = 'auto';
-      console.log('CKEditor inicializado', editor);
-    })
-    .catch(error => console.error(error));
-  });
+    editors.forEach(textarea => {
+        const height = textarea.dataset.height || '300';
+        ClassicEditor.create(textarea)
+            .then(editor => {
+                const editable = editor.ui.view.editable.element;
+                editable.style.minHeight = height + 'px';
+                editable.style.height = 'auto';
+                editable.style.overflowY = 'auto';
+            })
+            .catch(error => console.error(error));
+    });
 });
   </script>
 </body>

@@ -28,9 +28,9 @@
                 </tr>
             </thead>
 
-            <tbody class="text-gray-600">
+            <tbody id="galeria-fotos" class="text-gray-600">
                 @foreach($institucional as $institucional)
-                <tr class="border-t hover:bg-gray-50">
+                <tr class="border-t hover:bg-gray-50 cursor-move" data-id="{{$institucional->id}}">
                     <td class="px-4 py-3">{{$institucional->orden}}</td>
                     <td class="px-4 py-3">
                         @if ($institucional->foto)
@@ -74,4 +74,9 @@
             </table>
         </div>
     </div>
+         <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            activarOrdenDragDrop('#galeria-fotos', '{{ route('adm.institucional-reordenar') }}');
+        });
+</script>
 @endsection

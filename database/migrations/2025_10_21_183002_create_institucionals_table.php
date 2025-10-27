@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('orden')->nullable();
             $table->string('titulo')->nullable();
-            $table->string('texto')->nullable();
+            $table->text('texto')->nullable();
             $table->string('foto')->nullable();
             $table->boolean('active')->default(true);
             $table->boolean('destacado')->default(true);

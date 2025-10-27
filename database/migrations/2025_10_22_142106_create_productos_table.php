@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('foto_producto');
             $table->string('nombre');
             $table->string('detalle')->nullable();
+            $table->string('ficha_tecnica')->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();
         });

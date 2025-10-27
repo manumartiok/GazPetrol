@@ -15,7 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('foto');
             $table->string('texto');
+            $table->string('sub_text');
             $table->text('descripcion');
+            $table->string('texto2');
+            $table->string('sub_text2');
+            $table->string('texto3');
+            $table->string('sub_text3');
+
             $table->timestamps();
         });
     }

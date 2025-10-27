@@ -55,7 +55,7 @@
 
         <script>
         document.addEventListener('DOMContentLoaded', function() {
-            activarOrdenDragDrop('#galeria-fotos', '{{ route('adm.productos-fotos-reordenar') }}');
+            activarOrdenDragDrop('#galeria-fotos', '{{ route('adm.categorias-reordenar') }}');
         });
 </script>
 @endsection

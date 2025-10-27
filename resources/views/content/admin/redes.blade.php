@@ -28,11 +28,11 @@
                 </tr>
             </thead>
 
-            <tbody class="text-gray-600">
+            <tbody id="galeria-fotos" class="text-gray-600">
                 @foreach($red as $red)
-                <tr class="border-t hover:bg-gray-50">
+                <tr class="border-t hover:bg-gray-50 cursor-move" data-id="{{$red->id}}">
                 <td class="px-4 py-3">{{$red->orden}}</td>
-                <td class="px-4 py-3">  <i class="fa-brands {{$red->icono}} text-xl"></i></td>
+                <td class="px-4 py-3"> <i class="{{$red->icono}} text-xl"></i></td>
                 <td class="px-4 py-3 w-64 max-w-64 truncate">{{$red->nombre}}</td>
                 <td class="px-4 py-3 w-64 max-w-64 truncate">{{$red->url}}</td>
                 <td class="px-4 py-3 text-center">
@@ -57,4 +57,9 @@
             </table>
         </div>
     </div>
+            <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            activarOrdenDragDrop('#galeria-fotos', '{{ route('adm.redes-reordenar') }}');
+        });
+</script>
 @endsection

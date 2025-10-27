@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('password_resets', function (Blueprint $table) {
             $table->string('email')->index();   // el email del usuario
             $table->string('token');            // el token de reseteo generado
-            $table->timestamps('created_at')->nullable();
+            $table->timestamps();
         });
     }
 

@@ -13,7 +13,7 @@ class RedController extends Controller
      */
     public function index()
     {
-        $redes=Red::all();
+        $redes=Red::orderBy('orden')->get();
         return view('content.admin.redes',['red'=>$redes]);
     }
 
@@ -88,4 +88,14 @@ class RedController extends Controller
         $redes->save();
         return redirect()->route('adm.redes');
       }
+
+      
+          public function reordenar(Request $request)
+    {
+        foreach ($request->orden as $redes) {
+            \App\Models\Red::where('id', $redes['id'])->update(['orden' => $redes['orden']]);
+        }
+
+        return response()->json(['success' => true]);
+    }  
 }
