@@ -18,7 +18,7 @@
             </div>
             <hr class="my-3">
             
-            <form method="POST" action="{{ route('adm.home-update') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('adm.home-update') }}" enctype="multipart/form-data " @submit.prevent="handleSubmit">
                 @csrf
                 <input type="hidden" name="home_id" value="{{ $home->id ?? '' }}">
 
@@ -47,11 +47,15 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="block text-gray-700 font-medium mb-2" for="descripcion">Descripción</label>
-                        <textarea id="descripcion" name="descripcion" placeholder="Descripcion"  
-                            class="ckeditor w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            {{ $home->descripcion ?? '' }}
-                        </textarea>
+                        <label class="block text-gray-700 font-medium mb-2">Descripcion</label>
+                        
+                        {{-- Editor Quill --}}
+                        <div class="quill-editor bg-white" data-field="descripcion" style="height: 200px;">
+                            {!! $home->descripcion ?? '' !!}
+                        </div>
+                        
+                        {{-- Campo oculto para enviar el contenido --}}
+                        <input type="hidden" name="descripcion" id="descripcion">
                     </div>
 
                     <div class="mb-4">
@@ -84,3 +88,67 @@
         </div>            
     </div>
 @endsection
+
+@push('scripts')
+<script>
+    setTimeout(function() {
+        if (typeof Quill === 'undefined') {
+            console.error('ERROR: Quill no está cargado');
+            return;
+        }
+
+        const toolbarConfig = [
+            ['bold', 'italic', 'underline'],
+            [{ 'color': [] }, { 'background': [] }],
+            [{ 'size': ['small', false, 'large', 'huge'] }],
+            [{ 'align': [] }],
+            ['clean']
+        ];
+
+        const editores = [];
+
+        document.querySelectorAll('.quill-editor').forEach(function(container) {
+            const fieldName = container.dataset.field;
+            
+            const quill = new Quill(container, {
+                theme: 'snow',
+                modules: { toolbar: toolbarConfig },
+                placeholder: 'Escribe aquí...'
+            });
+
+            editores.push({
+                quill: quill,
+                fieldName: fieldName
+            });
+            
+            console.log('✓ Editor', fieldName, 'inicializado');
+        });
+
+        console.log('✓ Total de editores inicializados:', editores.length);
+
+        // Exponer función para Vue
+        window.guardarContenidoQuill = function() {
+            let contador = 0;
+            
+            editores.forEach(function(editor) {
+                let contenido = editor.quill.root.innerHTML;
+                
+                if (contenido === '<p><br></p>' || contenido.trim() === '') {
+                    contenido = ' ';
+                }
+                
+                const input = document.querySelector('input[name="' + editor.fieldName + '"]');
+                if (input) {
+                    input.value = contenido;
+                    contador++;
+                    console.log('✓ Guardado', editor.fieldName, ':', contenido.substring(0, 30) + '...');
+                }
+            });
+            
+            console.log('✓ Total editores guardados:', contador);
+            return true;
+        };
+        
+    }, 1000);
+</script>
+@endpush

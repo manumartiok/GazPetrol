@@ -21,15 +21,20 @@
 
 {{-- contenido  --}}
 
-<div class=" h-full nunitosans flex flex-col">
+<div class=" nunitosans flex flex-col">
     {{-- informacion  --}}
     <div class="h-full w-full bg-[#F5F5F5]">
         <div class="max-w-[1366px] mx-auto px-[73px]">
-            <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[24px] py-[80px]">
+            <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-[24px] gap-y-[50px] py-[80px]">
                 @foreach($institucionales as $institucional)
-                    <div class="w-[392px] h-[632px] flex flex-col border rounded-[12px] bg-white">
-                        <div class="w-full h-[260px]">
-                            <img src="{{$institucional->foto}}" alt="" class="h-full w-full border rounded-t-[12px] ">
+                    <div class="w-[392px] h-[632px] flex flex-col border rounded-[12px] bg-white 
+                                overflow-hidden transition-all duration-300 ease-in-out 
+                                hover:shadow-lg hover:-translate-y-1 group">
+                        <div class="relative w-full h-[260px] overflow-hidden">
+                            <img src="{{$institucional->foto}}" 
+                                alt="" 
+                                class="h-full w-full object-cover rounded-t-[12px] ">
+                            <div class="absolute inset-0 bg-black/0 transition-all duration-300 ease-in-out group-hover:bg-black/20"></div>
                         </div>
                         <div class="p-[20px] flex flex-col gap-[10px]">
                             <h1>{{$institucional->titulo}}</h1>

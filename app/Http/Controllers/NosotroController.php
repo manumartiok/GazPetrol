@@ -22,6 +22,7 @@ class NosotroController extends Controller
      */
     public function update(Request $request)
     {
+    
         $nosotros = Nosotro::find($request->nosotro_id) ?? new Nosotro();
 
         // Campos de texto

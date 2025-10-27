@@ -14,6 +14,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <!-- Titulo -->
     <title>@yield('title')</title>
+    {{-- favicon  --}}
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png')}}">
     <!-- Cargar jQuery primero -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Tailwind -->
@@ -68,10 +70,18 @@
 
 
         <!-- Menú mobile -->
-        <div id="mobile-menu" class="lg:hidden  flex flex-col items-center gap-4 bg-white py-3">
-
+        <div id="mobile-menu" class="hidden lg:hidden absolute top-[90px] left-0 w-full flex flex-col items-center gap-4 bg-white py-6 shadow-md z-40">
+            <a href="{{ route('nosotros') }}" class="text-[#0A3858] text-[16px] font-semibold hover:text-[#5FBB46]">Nosotros</a>
+            <a href="{{ route('comercializacion') }}" class="text-[#0A3858] text-[16px] font-semibold hover:text-[#5FBB46]">Comercialización de hidrocarburos</a>
+            <a href="{{ route('productos') }}" class="text-[#0A3858] text-[16px] font-semibold hover:text-[#5FBB46]">Productos</a>
+            <a href="{{ route('clientes') }}" class="text-[#0A3858] text-[16px] font-semibold hover:text-[#5FBB46]">Clientes</a>
+            <a href="{{ route('institucional') }}" class="text-[#0A3858] text-[16px] font-semibold hover:text-[#5FBB46]">Institucional</a>
+            <a href="{{ route('contacto') }}" class="text-[#0A3858] text-[16px] font-semibold hover:text-[#5FBB46]">Contacto</a>
+            
+            <a href="{{ route('solicitud') }}" class="mt-4 w-[225px] h-[41px] border border-[#0A3858] rounded-[20px] bg-[#0A3858] text-white flex justify-center items-center">
+                Solicitud de presupuesto
+            </a>
         </div>
-      
         </nav>
 
     <!-- contenido -->
@@ -81,7 +91,7 @@
     </div>
     
     <!-- footer  -->
-    <footer class=" nunitosans text-white min-h-[415px] h-[415px]  flex flex-col justify-between bg-[#0A3858] ">
+    <footer class=" nunitosans text-white min-h-[348px] h-[348px]  flex flex-col justify-between bg-[#0A3858] ">
 
         <div class="h-full w-full max-w-[1366px] mx-auto px-[73px] pt-[45px] pb-[35px] flex justify-center lg:justify-between ">
             <div class="">
@@ -91,12 +101,12 @@
                 <ul class="flex flex-col gap-[30px]">
                     <h3 class="text-[20px] font-[700]">Secciones</h3>
                     <div class="flex flex-col justify-between text-[16px] h-[200px] max-w-[132px]">
-                            <li><a href="">Nosotros</a></li>
-                            <li><a href=""></a>Comercialización de Hidrocarburos</li>
-                            <li><a href=""></a>Productos</li>
-                            <li><a href=""></a>Clientes</li>
-                            <li><a href=""></a>Novedades</li>
-                            <li><a href=""></a>Contacto</li>
+                            <li><a href="{{route('nosotros')}}">Nosotros</a></li>
+                            <li><a href="{{route('comercializacion')}}"></a>Comercialización de Hidrocarburos</li>
+                            <li><a href="{{route('productos')}}"></a>Productos</li>
+                            <li><a href="{{route('clientes')}}"></a>Clientes</li>
+                            <li><a href="{{route('institucional')}}"></a>Institucional</li>
+                            <li><a href="{{route('contacto')}}"></a>Contacto</li>
                     </div>
                 </ul>
             </div>
@@ -120,16 +130,34 @@
                 </div>
             </div>
         </div>
-        <div class="box-border min-h-[67px] h-[67px]  flex justify-between items-center px-12">
-            <p> © Copyright &copy;<?php echo date("Y");?> Nilitos Snacks. Todos los derechos reservados</p>
-            <a href="https://osole.com.ar/">By <span>Osole</span></a>
-        </div>
-    
+        
     </footer>
+    <div class="relative box-border min-h-[67px] h-[67px] flex justify-between items-center  bg-[#0A3858] overflow-hidden">
+        <!-- overlay -->
+        <div class="absolute inset-0 bg-black/10 pointer-events-none"></div>
+
+        <!-- contenido -->
+        <div class="w-full max-w-[1366px] mx-auto px-[73px] flex justify-between items-center  text-[14px]">
+            <p class="text-white">© Copyright &copy;<?php echo date("Y");?> GazPetrol. Todos los derechos reservados</p>
+            <a href="https://osole.com.ar/" class="text-white">By <span>Osole</span></a>
+        </div>
+    </div>
 
     <!-- Sweet Alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @yield('scripts')
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        toggle.addEventListener('click', () => {
+            // Mostrar / ocultar el menú móvil
+            mobileMenu.classList.toggle('hidden');
+        });
+    });
+    </script>
 </body>
 </html>

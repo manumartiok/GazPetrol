@@ -6,12 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>@yield('title','Panel Admin')</title>
+  {{-- favicon  --}}
+  <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png')}}">
   {{-- jquery --}}
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   {{-- tailwind  --}}
   <script src="https://cdn.tailwindcss.com"></script>
   {{-- font awesome  --}}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  {{-- Quill.js CSS --}}
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
   {{-- Css --}}
   <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
 
@@ -50,6 +54,9 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+  {{-- Quill.js JS --}}
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
   <script>
     $(document).ready(function() {
       // Toggle Sidebar
@@ -146,5 +153,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
   </script>
+
+   @stack('scripts')  {{-- AGREGAR ESTA LÍNEA --}}
 </body>
 </html>

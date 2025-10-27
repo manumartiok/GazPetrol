@@ -145,4 +145,18 @@ class ProductoController extends Controller
 
         return response()->json(['success' => true]);
     }    
+
+    public function detalle($id, Request $request)
+    {
+    $categorias = Categoria::where('active', true)->orderBy('orden')->get();
+    $producto = Producto::with('categoria', 'fotos')->findOrFail($id); // con relaciones
+    $productos = Producto::where('active', true)->orderBy('orden')->get();
+
+    // Recibir la categoría seleccionada (opcional)
+    $categoria_seleccionada = $request->query('categoria');
+
+    return view('content.web.productos-detalle', compact(
+         'categorias', 'producto', 'productos', 'categoria_seleccionada'
+    ));
+    }
 }

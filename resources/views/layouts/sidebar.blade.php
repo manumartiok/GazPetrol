@@ -95,6 +95,15 @@
           <li><a href="{{route('adm.solicitud-ban')}}" class="block py-1 px-2 hover:bg-gray-600 rounded">Banner</a></li>
         </ul>
       </li>
+       <li class="group">
+        <button class="flex justify-between items-center w-full py-2 px-3 hover:bg-gray-700 rounded transition focus:outline-none" onclick="toggleSubMenu(this)">
+          <span><i class="fa-solid fa-screwdriver-wrench mr-2"></i>Servicios</span>
+          <i class="fas fa-chevron-down transition-transform duration-300 group-[.open]:rotate-180"></i>
+        </button>
+        <ul class="submenu hidden pl-8 mt-1 space-y-1">
+          <li><a href="{{route('adm.servicios')}}" class="block py-1 px-2 hover:bg-gray-600 rounded">Manejar servicios</a></li>
+        </ul>
+      </li>
     </ul>
   </div>
 

@@ -14,6 +14,6 @@ class Producto extends Model
 
         public function fotos()
     {
-        return $this->hasMany(ProductoFoto::class, 'productos_id')->orderBy('orden');
+        return $this->hasMany(ProductoFoto::class, 'productos_id','id')->orderBy('orden');
     }
 }

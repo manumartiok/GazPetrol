@@ -26,12 +26,12 @@
         <div class="flex w-full gap-[34px]">
             {{-- texto  --}}
             <div class="w-1/2">
-                <h3>{{$nosotros->texto_chico1}}</h3>
-                <h1>{{$nosotros->texto_grande1}}</h1>
-                <h4>{{$nosotros->descripcion}}</h4>
+                <h3 class="text-[16px] font-bold text-[#5FBB46]">{{$nosotros->texto_chico1}}</h3>
+                <h1 class="text-[32px] font-bold text-[#0A3858] mb-2">{{$nosotros->texto_grande1}}</h1>
+                <h4>{!! $nosotros->descripcion !!}</h4>
             </div>
             {{-- Foto  --}}
-            <div class="w-1/2">
+            <div class="w-1/2 flex flex-grow">
                 <img src="{{$nosotros->foto}}" alt="">
             </div>
         </div>
@@ -41,8 +41,8 @@
         <div class="nunitosans max-w-[1366px] mx-auto px-[73px] pt-[56px] pb-[115px] flex flex-col">
             {{-- encabezado  --}}
             <div class="flex flex-col">
-                <h1>{{$nosotros->texto_chico2}}</h1>
-                <h2>{{$nosotros->texto_grande2}}</h2>
+                <h1 class="text-[16px] font-bold text-[#5FBB46]">{{$nosotros->texto_chico2}}</h1>
+                <h2 class="text-[32px] font-bold text-[#0A3858] mb-[24px]">{{$nosotros->texto_grande2}}</h2>
             </div>
             {{-- detalles  --}}
             <div class="flex flex-col gap-[30px] mb-[30px]">
@@ -50,20 +50,20 @@
                 <div class="w-full flex gap-[24px] ">
                     <div class="w-1/2 flex flex-col items-center text-center bg-[#FFFFFF] px-[125px] pt-[70px] pb-[45px] gap-[30px]">
                         <img src="{{$nosotros->icono1}}" alt="">
-                        <h1>{{$nosotros->nombre_icono1}}</h1>
-                        <h3>{{$nosotros->texto_icono1}}</h3>
+                        <h1 class="text-[20px] font-bold text-[#0A3858]">{{$nosotros->nombre_icono1}}</h1>
+                        <h3>{!! $nosotros->texto_icono1 !!}</h3>
                     </div>
                     <div class="w-1/2 flex flex-col items-center text-center bg-[#FFFFFF] px-[125px] pt-[70px] pb-[45px] gap-[30px]">
                         <img src="{{$nosotros->icono2}}" alt="">
-                        <h1>{{$nosotros->nombre_icono2}}</h1>
-                        <h3>{{$nosotros->texto_icono2}}</h3>
+                        <h1 class="text-[20px] font-bold text-[#0A3858]">{{$nosotros->nombre_icono2}}</h1>
+                        <h3>{!! $nosotros->texto_icono2 !!}</h3>
                     </div>
                 </div>
                 {{-- abajo  --}}
                 <div class="w-full flex flex-col items-center text-center bg-[#FFFFFF] px-[75px] pt-[70px] pb-[45px] gap-[30px]">
                     <img src="{{$nosotros->icono3}}" alt="">
-                    <h1>{{$nosotros->nombre_icono3}}</h1>
-                    <h3>{{$nosotros->texto_icono3}}</h3>
+                    <h1 class="text-[20px] font-bold text-[#0A3858]">{{$nosotros->nombre_icono3}}</h1>
+                    <h3>{!! $nosotros->texto_icono3 !!}</h3>
                 </div>
             </div>
             {{-- video  --}}

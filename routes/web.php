@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 use App\Http\Middleware\AdminAuth;
 use App\Http\Controllers\AuthController;
@@ -24,10 +25,15 @@ use App\Http\Controllers\InstitucionalPersonaController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\ContactoBannerController;
 use App\Http\Controllers\SolicitudBannerController;
+use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\LogoController;
 use App\Http\Controllers\RedController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\MetadatoController;
+
+use App\Models\Categoria;
+use App\Models\Producto;
+use App\Models\ProductoBanner;
 
 //ADMIN
 Route::middleware(AdminAuth::class)->group(function () {
@@ -158,6 +164,17 @@ Route::middleware(AdminAuth::class)->group(function () {
     Route::get('/admin/solicitud/banner', [SolicitudBannerController::class, 'show'])->name('adm.solicitud-ban');
     Route::post('/admin/solicitud/banner/update', [SolicitudBannerController::class,'update'])->name('adm.solicitud-ban-update');
 
+    //servicios
+    Route::get('/admin/servicios', [ServicioController::class,'index'])->name('adm.servicios');
+    Route::get('/admin/servicios/creador', [ServicioController::class,'create'])->name('adm.servicios-creador');
+    Route::post('/admin/servicios/store', [ServicioController::class,'store'])->name('adm.servicios-store');
+    Route::get('/admin/servicios/editor/{red_id}', [ServicioController::class,'show'])->name('adm.servicios-editor');
+    Route::post('/admin/servicios/update', [ServicioController::class,'update'])->name('adm.servicios-update');
+    Route::get('/admin/servicios/destroy/{red_id}', [ServicioController::class,'destroy'])->name('adm.servicios-destroy');
+    Route::get('/admin/servicios/switch/{red_id}', [ServicioController::class,'switch'])->name('adm.servicios-switch');
+    Route::post('/admin/servicios/reordenar', [ServicioController::class, 'reordenar'])->name('adm.servicios-reordenar');
+
+
     //logo
     Route::get('/admin/logo', [LogoController::class, 'show'])->name('adm.logo');
     Route::post('/admin/logo/update', [LogoController::class,'update'])->name('adm.logo-update');
@@ -209,8 +226,20 @@ Route::get('/nosotros', function () {
 Route::get('/comercializacion', function () {
     return view('content.web.comercializacion');})->name('comercializacion');
 
-Route::get('/productos', function () {
-    return view('content.web.productos');})->name('productos');
+Route::get('/productos', function (Illuminate\Http\Request $request) {
+    $categoria_seleccionada = $request->categoria ?? null;
+    $categorias = App\Models\Categoria::where('active', true)->orderBy('orden')->get();
+    $productos = App\Models\Producto::where('active', true)
+                    ->when($categoria_seleccionada, fn($q) => $q->where('categoria_id', $categoria_seleccionada))
+                    ->orderBy('orden')
+                    ->get();
+    $productos_ban = App\Models\ProductoBanner::first();
+    
+    return view('content.web.productos', compact('productos_ban', 'categorias', 'productos', 'categoria_seleccionada'));
+})->name('productos');
+
+// Vista de detalle
+Route::get('/productos/detalle/{id}', [ProductoController::class, 'detalle'])->name('productos-detalle');
 
 Route::get('/clientes', function () {
     return view('content.web.clientes');})->name('clientes');
