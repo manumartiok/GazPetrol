@@ -6,7 +6,7 @@
 
 {{-- cabezal  --}}
 <div>
-    <h3>Usuarios</h3>
+    <h3 class="text-[20px] font-bold text-gray-500">Usuarios</h3>
     <hr class="mx-6">
 </div>
 

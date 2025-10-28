@@ -18,3 +18,11 @@ button:hover {
     transform: scale(1.05);
 }
 
+/* Excepción para el botón del sidebar */
+#toggleSidebar {
+    transition: color 300ms !important;
+}
+
+#toggleSidebar:hover {
+    transform: none !important;
+}

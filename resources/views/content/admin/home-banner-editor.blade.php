@@ -6,7 +6,7 @@
 
    {{-- cabezal --}}
     <div>
-        <h3>Editar banner Home</h3>
+        <h3 class="text-[20px] font-bold text-gray-500">Editar banner Home</h3>
         <hr class="mx-6">
     </div>
     
@@ -23,11 +23,11 @@
                 <input type="hidden" name="home_banners_id" value="{{ $home_banner->id ?? '' }}">
 
                 <div>
-                    <div class="mb-4">
-                    <label class="block text-gray-700 font-medium mb-2" for="foto">Foto</label>
+                    <div class="mb-4 ">
+                    <label class="block text-gray-700 font-medium mb-2" for="foto">Foto (recomendado 1366x768)</label>
 
                     @if (!empty($home_banner->foto))
-                        <img :src="foto.foto || '{{ $home_banner->foto }}'" alt="Foto" style="width: 20%;" class="mb-3">
+                        <img :src="foto.foto || '{{ $home_banner->foto }}'" alt="Foto" class="mb-3  w-full max-w-[1366px] h-[768px] object-cover">
                     @endif
 
                     <input type="file" name="foto" id="foto" @change="subirFoto"

@@ -7,7 +7,7 @@
    
    {{-- cabezal  --}}
     <div>
-        <h3>Home Banners</h3>
+        <h3 class="text-[20px] font-bold text-gray-500">Home Banners</h3>
         <hr class="mx-6">
     </div>
     {{-- Editor --}}

@@ -6,7 +6,7 @@
 
    {{-- cabezal --}}
     <div>
-        <h3>Crear Metadatos</h3>
+        <h3 class="text-[20px] font-bold text-gray-500">Crear Metadatos</h3>
         <hr class="mx-6">
     </div>
     
@@ -39,7 +39,7 @@
                     </div>
 
                 </div>
-                <button type="submit" class="border rounded p-4">Actualizar</button>
+                <button type="submit" class="border rounded p-4">Crear</button>
             </form>
         </div>            
     </div>

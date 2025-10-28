@@ -29,6 +29,15 @@
     .sidebar-transition {
       transition: all 0.3s ease-in-out;
     }
+
+    #sidebar.w-0 {
+      padding: 0 !important;
+    }
+
+    #sidebar.w-0 > div {
+        opacity: 0;
+        pointer-events: none;
+      }
     .user-menu {
       display: none;
       position: absolute;
@@ -62,13 +71,17 @@
       // Toggle Sidebar
       let sidebarOpen = true;
 
-      $('#toggleSidebar').click(function() {
+    $('#toggleSidebar').click(function() {
         sidebarOpen = !sidebarOpen;
         
         if (sidebarOpen) {
           $('#sidebar').removeClass('w-0 overflow-hidden').addClass('w-64');
+          // Mostrar contenido
+          $('#sidebar > div').removeClass('opacity-0');
         } else {
           $('#sidebar').removeClass('w-64').addClass('w-0 overflow-hidden');
+          // Ocultar contenido
+          $('#sidebar > div').addClass('opacity-0');
         }
       });
       

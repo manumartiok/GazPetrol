@@ -6,7 +6,7 @@
 
    {{-- cabezal --}}
     <div>
-        <h3>Editar Institucional</h3>
+        <h3 class="text-[20px] font-bold text-gray-500">Editar Institucional</h3>
         <hr class="mx-6">
     </div>
     
@@ -24,10 +24,10 @@
 
                 <div>
                     <div class="mb-4">
-                    <label class="block text-gray-700 font-medium mb-2" for="foto">Foto</label>
+                    <label class="block text-gray-700 font-medium mb-2" for="foto">Foto (recomendado 392x260)</label>
 
                     @if (!empty($institucional->foto))
-                        <img :src="foto.foto || '{{ $institucional->foto }}'" alt="Foto" style="width: 20%;" class="mb-3">
+                        <img :src="foto.foto || '{{ $institucional->foto }}'" alt="Foto" class="mb-3 w-full max-w-[392px] h-[260px] object-cover">
                     @endif
 
                     <input type="file" name="foto" id="foto" @change="subirFoto"

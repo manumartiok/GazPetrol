@@ -6,7 +6,7 @@
 
  {{-- cabezal  --}}
     <div>
-        <h3>Categorias</h3>
+        <h3 class="text-[20px] font-bold text-gray-500">Categorias</h3>
         <hr class="mx-6">
     </div>
     {{-- Editor --}}

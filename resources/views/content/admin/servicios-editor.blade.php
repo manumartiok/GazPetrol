@@ -5,7 +5,7 @@
 @section('content')
 
 <div>
-    <h3>Editar Servicio</h3>
+    <h3 class="text-[20px] font-bold text-gray-500">Editar Servicio</h3>
     <hr class="mx-6">
 </div>
 

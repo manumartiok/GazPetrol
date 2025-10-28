@@ -6,7 +6,7 @@
 
    {{-- cabezal --}}
     <div>
-        <h3>Logos</h3>
+        <h3 class="text-[20px] font-bold text-gray-500">Logos</h3>
         <hr class="mx-6">
     </div>
     
@@ -24,10 +24,10 @@
 
                 <div>
                     <div class="mb-4">
-                    <label class="block text-gray-700 font-medium mb-2" for="foto">Foto barra de navegacion</label>
+                    <label class="block text-gray-700 font-medium mb-2" for="foto">Foto barra de navegacion (recomendado 222x53)</label>
 
                     @if (!empty($logo->foto_nav))
-                        <img :src="foto.foto_nav || '{{ $logo->foto_nav }}'" alt="Foto" style="width: 20%;" class="mb-3">
+                        <img :src="foto.foto_nav || '{{ $logo->foto_nav }}'" alt="Foto" class="mb-3 w-full max-w-[222px] h-[53px] object-cover">
                     @endif
 
                     <input type="file" name="foto_nav" id="foto_nav" @change="subirFoto"
@@ -35,10 +35,10 @@
                     </div>
 
                      <div class="mb-4">
-                    <label class="block text-gray-700 font-medium mb-2" for="foto">Foto footer</label>
+                    <label class="block text-gray-700 font-medium mb-2" for="foto">Foto footer (recomendado 222x53)</label>
 
                     @if (!empty($logo->foto_footer))
-                        <img :src="foto.foto_footer || '{{ $logo->foto_footer}}'" alt="Foto" style="width: 20%;" class="mb-3">
+                        <img :src="foto.foto_footer || '{{ $logo->foto_footer}}'" alt="Foto" class="mb-3 w-full max-w-[222px] h-[53px] object-cover">
                     @endif
 
                     <input type="file" name="foto_footer" id="foto_footer" @change="subirFoto"

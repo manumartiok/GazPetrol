@@ -6,7 +6,7 @@
 
    {{-- cabezal --}}
     <div>
-        <h3>Crear Productos</h3>
+        <h3 class="text-[20px] font-bold text-gray-500">Crear Productos</h3>
         <hr class="mx-6">
     </div>
     
@@ -24,7 +24,7 @@
 
                 <div>
                     <div class="mb-4">
-                    <label class="block text-gray-700 font-medium mb-2" for="foto_producto">Foto</label>
+                    <label class="block text-gray-700 font-medium mb-2" for="foto_producto">Foto (recomendado 287x287)</label>
                     <input type="file" name="foto_producto" id="foto_producto" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
                     </div>
 
@@ -62,7 +62,7 @@
                         <input type="file" name="ficha_tecnica" id="ficha_tecnica" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
                     </div>
                 </div>
-                <button type="submit" class="border rounded p-4">Actualizar</button>
+                <button type="submit" class="border rounded p-4">Crear</button>
             </form>
         </div>     
     </div>

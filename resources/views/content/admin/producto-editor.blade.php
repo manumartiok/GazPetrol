@@ -6,7 +6,7 @@
 
    {{-- cabezal --}}
     <div>
-        <h3>Editar Productos</h3>
+        <h3 class="text-[20px] font-bold text-gray-500">Editar Productos</h3>
         <hr class="mx-6">
     </div>
     
@@ -24,10 +24,10 @@
 
                 <div>
                     <div class="mb-4">
-                        <label class="block text-gray-700 font-medium mb-2" for="foto_producto">Foto</label>
+                        <label class="block text-gray-700 font-medium mb-2" for="foto_producto">Foto (recomendado 287x287)</label>
 
                         @if (!empty($producto->foto_producto))
-                            <img :src="foto.foto_producto || '{{ $producto->foto_producto }}'" alt="Foto" style="width: 20%;" class="mb-3">
+                            <img :src="foto.foto_producto || '{{ $producto->foto_producto }}'" alt="Foto" class="mb-3 w-full max-w-[287px] h-[287px] object-cover">
                         @endif
 
                         <input type="file" name="foto_producto" id="foto_producto" @change="subirFoto"
@@ -103,8 +103,8 @@
                 <input type="hidden" name="productos_id" value="{{ $producto->id ?? '' }}">
 
                 <div class="mb-4">
-                    <label class="block text-gray-700 font-medium mb-2" for="foto">Galería</label>
-                    <input type="file" name="foto" id="foto" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                    <label class="block text-gray-700 font-medium mb-2" for="foto">Galería (recomendado 392x380)</label>
+                    <input type="file" name="foto" id="foto" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required/>
                 </div>
 
                 <div class="mb-4">

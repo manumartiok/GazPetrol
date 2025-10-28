@@ -5,7 +5,7 @@
 @section('content')
 
 <div>
-    <h3>Crear Servicio</h3>
+    <h3 class="text-[20px] font-bold text-gray-500">Crear Servicio</h3>
     <hr class="mx-6">
 </div>
 
@@ -29,7 +29,7 @@
                     class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
 
-            <button type="submit" class="border rounded p-4">Guardar</button>
+            <button type="submit" class="border rounded p-4">Crear</button>
         </form>
     </div>
 </div>

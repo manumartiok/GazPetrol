@@ -8,7 +8,7 @@
     
     {{-- cabezal  --}}
         <div>
-            <h3>Nosotros</h3>
+            <h3 class="text-[20px] font-bold text-gray-500">Nosotros</h3>
             <hr class="mx-6">
         </div>
         {{-- Editor --}}
@@ -25,9 +25,9 @@
 
                     <div>
                         <div class="mb-4">
-                            <label class="form-label" for="">Video </label>
+                            <label class="form-label" for="">Video (recomendado 1224x688)</label>
                             @if (!empty($nosotro->video))
-                                <video autoplay loop muted playsinline width="20%" class="mb-3">
+                                <video autoplay loop muted playsinline  class="mb-3 w-full max-w-[1224px] h-[688px] object-cover mx-auto">
                                     <source src="{{ $nosotro->video }}" type="video/mp4">
                                     Tu navegador no soporta el video.
                                 </video>
@@ -36,10 +36,10 @@
                         </div>
 
                         <div class="mb-4">
-                        <label class="block text-gray-700 font-medium mb-2" for="foto">Foto</label>
+                        <label class="block text-gray-700 font-medium mb-2" for="foto">Foto (recomendado 600x722)</label>
 
                             @if (!empty($nosotro->foto))
-                                <img :src="foto.foto || '{{ $nosotro->foto }}'" alt="Foto" style="width: 20%;" class="mb-3">
+                                <img :src="foto.foto || '{{ $nosotro->foto }}'" alt="Foto" class="mb-3 w-full max-w-[600px] h-[722px] object-cover">
                             @endif
 
                             <input type="file" name="foto" id="foto" @change="subirFoto"
@@ -85,9 +85,9 @@
 
                         {{-- Logo 1 --}}
                         <div class="mb-4">
-                            <label class="block text-gray-700 font-medium mb-2" for="foto">Logo 1</label>
+                            <label class="block text-gray-700 font-medium mb-2" for="foto">Logo 1 (recomendado 50x50)</label>
                             @if (!empty($nosotro->icono1))
-                                <img :src="foto.icono1 || '{{ $nosotro->icono1 }}'" alt="Foto" style="width: 20%;" class="mb-3">
+                                <img :src="foto.icono1 || '{{ $nosotro->icono1 }}'" alt="Foto"  class="mb-3 w-full max-w-[50px] h-[50px] object-cover">
                             @endif
                             <input type="file" name="icono1" id="icono1" @change="subirFoto"
                                 class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
@@ -109,9 +109,9 @@
 
                         {{-- Logo 2 --}}
                         <div class="mb-4">
-                            <label class="block text-gray-700 font-medium mb-2" for="foto">Logo 2</label>
+                            <label class="block text-gray-700 font-medium mb-2" for="foto">Logo 2 (recomendado 50x50)</label>
                             @if (!empty($nosotro->icono2))
-                                <img :src="foto.icono2 || '{{ $nosotro->icono2 }}'" alt="Foto" style="width: 20%;" class="mb-3">
+                                <img :src="foto.icono2 || '{{ $nosotro->icono2 }}'" alt="Foto"  class="mb-3 w-full max-w-[50px] h-[50px] object-cover">
                             @endif
                             <input type="file" name="icono2" id="icono2" @change="subirFoto"
                                 class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
@@ -133,9 +133,9 @@
 
                         {{-- Logo 3 --}}
                         <div class="mb-4">
-                            <label class="block text-gray-700 font-medium mb-2" for="foto">Logo 3</label>
+                            <label class="block text-gray-700 font-medium mb-2" for="foto">Logo 3 (recomendado 50x50)</label>
                             @if (!empty($nosotro->icono3))
-                                <img :src="foto.icono3 || '{{ $nosotro->icono3 }}'" alt="Foto" style="width: 20%;" class="mb-3">
+                                <img :src="foto.icono3 || '{{ $nosotro->icono3 }}'" alt="Foto"  class="mb-3 w-full max-w-[50px] h-[50px] object-cover">
                             @endif
                             <input type="file" name="icono3" id="icono3" @change="subirFoto"
                                 class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>

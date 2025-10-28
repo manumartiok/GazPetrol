@@ -6,7 +6,7 @@
 
    {{-- cabezal --}}
     <div>
-        <h3>Crear Cliente</h3>
+        <h3 class="text-[20px] font-bold text-gray-500">Crear Cliente</h3>
         <hr class="mx-6">
     </div>
     
@@ -24,7 +24,7 @@
 
                 <div>
                     <div class="mb-4">
-                    <label class="block text-gray-700 font-medium mb-2" for="foto">Foto</label>
+                    <label class="block text-gray-700 font-medium mb-2" for="foto">Foto (recomendado 184x141)</label>
                     <input type="file" name="foto" id="foto" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
                     </div>
 

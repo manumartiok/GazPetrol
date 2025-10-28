@@ -5,7 +5,7 @@
 @section('content')
 
 <div class="mx-20" id="app">
-    <h1 class="mb-4">Perfil</h1>
+    <h1 class="mb-4 text-[20px] font-bold text-gray-500">Perfil</h1>
     <div class="border border-rounded p-4">
         <h3>Detalles del perfil</h3>
         <hr class="my-3">

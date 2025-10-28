@@ -6,7 +6,7 @@
 
    {{-- cabezal --}}
     <div>
-        <h3>Crear Usuarios</h3>
+        <h3 class="text-[20px] font-bold text-gray-500">Crear Usuarios</h3>
         <hr class="mx-6">
     </div>
     
@@ -54,7 +54,7 @@
                             <option value="Usuario" {{ ($usuario->rol ?? '') == 'Usuario' ? 'selected' : '' }}>Usuario</option>
                         </select>
                     </div>
-                <button type="submit" class="border rounded p-4">Actualizar</button>
+                <button type="submit" class="border rounded p-4">Crear</button>
             </form>
         </div>            
     </div>
