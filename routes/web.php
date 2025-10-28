@@ -26,14 +26,13 @@ use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\ContactoBannerController;
 use App\Http\Controllers\SolicitudBannerController;
 use App\Http\Controllers\ServicioController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\LogoController;
 use App\Http\Controllers\RedController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\MetadatoController;
 
-use App\Models\Categoria;
-use App\Models\Producto;
-use App\Models\ProductoBanner;
+use App\Http\Controllers\FormController;
 
 //ADMIN
 Route::middleware(AdminAuth::class)->group(function () {
@@ -173,7 +172,14 @@ Route::middleware(AdminAuth::class)->group(function () {
     Route::get('/admin/servicios/destroy/{red_id}', [ServicioController::class,'destroy'])->name('adm.servicios-destroy');
     Route::get('/admin/servicios/switch/{red_id}', [ServicioController::class,'switch'])->name('adm.servicios-switch');
     Route::post('/admin/servicios/reordenar', [ServicioController::class, 'reordenar'])->name('adm.servicios-reordenar');
-
+    
+    //newsletter
+    Route::get('/admin/newsletter', [NewsletterController::class,'index'])->name('adm.newsletter');
+    Route::post('/admin/newsletter/store', [NewsletterController::class,'store'])->name('adm.newsletter-store');
+    Route::post('/admin/newsletter/send', [NewsletterController::class,'send'])->name('adm.newsletter-send'); // NUEVA RUTA
+    Route::get('/admin/newsletter/destroy/{newsletter_id}', [NewsletterController::class,'destroy'])->name('adm.newsletter-destroy');
+    Route::get('/admin/newsletter/switch/{newsletter_id}', [NewsletterController::class,'switch'])->name('adm.newsletter-switch');
+    Route::post('/admin/newsletter/reordenar', [NewsletterController::class, 'reordenar'])->name('adm.newsletter-reordenar');
 
     //logo
     Route::get('/admin/logo', [LogoController::class, 'show'])->name('adm.logo');
@@ -252,6 +258,9 @@ Route::get('/contacto', function () {
 
 Route::get('/solicitud', function () {
     return view('content.web.solicitud');})->name('solicitud');
+
+Route::post('/contacto/enviar', [FormController::class, 'contacto'])->name('form.contacto');
+Route::post('/solicitud/enviar', [FormController::class, 'solicitud'])->name('form.solicitud');
 
 
 

@@ -15,39 +15,46 @@ class PerfilController extends Controller
         $usuario = Auth::user();
         return view('content.admin.perfil', compact('usuario'));
     }
+public function update(Request $request)
+{
+    /** @var \App\Models\Usuario $usuario */
+    $usuario = Auth::user();
 
-    public function update(Request $request)
-    {
-        /** @var \App\Models\Usuario $usuario */
-        $usuario = Auth::user();
+    $request->validate([
+        'usuario' => 'required|string|max:255',
+        'email' => 'required|email',
+        'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        'contraseña' => 'nullable|min:6|confirmed',
+    ]);
 
-        $request->validate([
-            'usuario' => 'required|string|max:255',
-            'email' => 'required|email',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'contraseña' => 'nullable|min:6|confirmed',
-        ]);
-
-        if ($request->hasFile('foto')) {
-            // Borrar foto anterior si existe
-            if ($usuario->foto && Storage::disk('public')->exists($usuario->foto)) {
-                Storage::disk('public')->delete($usuario->foto);
+    // Subida de la foto
+    if ($request->hasFile('foto')) {
+        // Eliminar foto anterior si existe
+        if (!empty($usuario->foto)) {
+            $oldPath = str_replace('/storage/', '', $usuario->foto);
+            if (Storage::disk('public')->exists($oldPath)) {
+                Storage::disk('public')->delete($oldPath);
             }
-
-            $path = $request->file('foto')->store('images', 'public');
-            $usuario->foto = Storage::url($path);
         }
 
-        $usuario->usuario = $request->usuario;
-        $usuario->email = $request->email;
-
-        if (!empty($request->contraseña)) {
-            $usuario->contraseña = Hash::make($request->contraseña);
-        }
-
-        $usuario->save();
-
-        return back()->with('success', 'Perfil actualizado correctamente.');
+        // Guardar la nueva foto
+        $file = $request->file('foto');
+        $name = time() . '_' . $file->getClientOriginalName();
+        $path = $file->storeAs('images', $name, 'public');
+        $usuario->foto = Storage::url($path);
     }
-    
+
+    // Actualizar resto de campos
+    $usuario->usuario = $request->usuario;
+    $usuario->email = $request->email;
+
+    if (!empty($request->contraseña)) {
+        $usuario->contraseña = Hash::make($request->contraseña);
+    }
+
+    $usuario->save();
+
+    return back()->with('success', 'Perfil actualizado correctamente.');
+}
+
 }

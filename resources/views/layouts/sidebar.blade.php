@@ -113,6 +113,7 @@
   <div>
     <p class="text-xs text-gray-400 mb-3 px-3 font-semibold">CONFIGURACIÓN</p>
     <ul>
+      <li><a href="{{route('adm.newsletter')}}" class="block py-2 px-3 hover:bg-gray-700 rounded transition"><i class="fa-solid fa-newspaper mr-2"></i>Newsletter</a></li>
       <li><a href="{{route('adm.logo')}}" class="block py-2 px-3 hover:bg-gray-700 rounded transition"><i class="fas fa-image mr-2"></i>Logos</a></li>
       <li><a href="{{route('adm.redes')}}" class="block py-2 px-3 hover:bg-gray-700 rounded transition"><i class="fas fa-share-alt mr-2"></i>Redes sociales</a></li>
       <li><a href="{{route('adm.usuarios')}}" class="block py-2 px-3 hover:bg-gray-700 rounded transition"><i class="fas fa-users mr-2"></i>Usuarios</a></li>

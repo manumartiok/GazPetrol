@@ -18,7 +18,7 @@
             </div>
             <hr class="my-3">
             
-            <form method="POST" action="{{ route('adm.productos-store') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('adm.productos-store') }}" enctype="multipart/form-data" @submit.prevent="handleSubmit"> 
                 @csrf
                 <input type="hidden" name="productos_id" value="{{ $producto->id ?? '' }}">
 
@@ -49,9 +49,12 @@
                         <input type="text" id="nombre" name="nombre" placeholder="Nombre" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
 
+
+                    {{-- 🔽 Editor Quill para el detalle --}}
                     <div class="mb-4">
                         <label class="block text-gray-700 font-medium mb-2" for="detalle">Detalle</label>
-                        <input type="text" id="detalle" name="detalle" placeholder="Detalle" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <div class="quill-editor bg-white" data-field="detalle" style="height: 150px;"></div>
+                        <input type="hidden" name="detalle" id="detalle">
                     </div>
 
                     <div class="mb-4">
@@ -64,3 +67,7 @@
         </div>     
     </div>
 @endsection
+
+@push('scripts')
+@include('includes.quill-init')
+@endpush

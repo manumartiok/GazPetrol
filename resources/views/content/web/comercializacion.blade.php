@@ -23,18 +23,18 @@
     {{-- informacion  --}}
     <div class="h-full nunitosans max-w-[1366px] mx-auto px-[20px] md:px-[73px] pt-[80px]">
         @foreach ($comercios as $comercio)
-        <div class="flex flex-col md:flex-row gap-[20px] mb-[80px]
-            @if($loop->iteration % 2 == 0) md:flex-row-reverse @endif">
+        <div class="flex flex-col lg:flex-row gap-[20px] mb-[80px]
+            @if($loop->iteration % 2 == 0) lg:flex-row-reverse @endif">
             
             {{-- Imagen --}}
-            <div class="w-full md:w-1/2">
-                <img src="{{ $comercio->foto }}" alt="{{ $comercio->titulo }}" class="w-full h-auto object-cover">
+            <div class="w-full lg:w-1/2">
+                <img src="{{ $comercio->foto }}" alt="{{ $comercio->titulo }}" class="w-full h-[400px] object-cover">
             </div>
 
             {{-- Texto --}}
-            <div class="w-full md:w-1/2 flex flex-col justify-center pr-0 md:pr-[20px] ">
+            <div class="w-full lg:w-1/2 flex flex-col justify-center pr-0 md:pr-[20px] text-center lg:text-start">
                 <h1 class="text-[32px] font-bold text-[#0A3858] mb-[10px]">{{ $comercio->titulo }}</h1>
-                <h2 class="">{{ $comercio->texto }}</h2>
+                <h2 class="">{!! $comercio->texto !!}</h2>
             </div>
 
         </div>

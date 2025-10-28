@@ -20,7 +20,7 @@
 </div>
 
 {{-- contenido --}}
-<div class="h-full nunitosans max-w-[1366px] mx-auto px-[73px] py-[80px]">
+<div class="nunitosans max-w-[1366px] mx-auto px-[73px] py-[80px]">
 
     {{-- Breadcrumb --}}
     <div class="flex mb-[40px] text-[12px]">
@@ -28,51 +28,67 @@
         <div class="ml-1">{{$producto->nombre}}</div>
     </div>
 
-    <div class="flex gap-8">
+    <div class="flex flex-col lg:flex-row gap-8">
 
         {{-- Categorías --}}
-        <div class="w-1/4">
+        <div class="w-full lg:w-1/4">
             <h1 class="text-[#1A181C]/50 font-bold">CATEGORÍAS</h1>
             <hr class="my-[20px]">
-            <div class="flex flex-col gap-[20px]">
+
+            {{-- Lista vertical para md+ --}}
+            <div class="hidden lg:flex flex-col gap-[20px]">
                 @foreach ($categorias as $categoria)
                     <div>
                         <a href="{{ route('productos', ['categoria' => $categoria->id]) }}"
-                           class="categoria-btn cursor-pointer {{ $categoria->id == $producto->categoria_id ? 'font-bold' : '' }}"
-                           style="{{ $categoria->id == $producto->categoria_id ? 'color:'.$categoria->color : '' }}">
+                        class="categoria-btn cursor-pointer {{ $categoria->id == $producto->categoria_id ? 'font-bold' : '' }}"
+                        style="{{ $categoria->id == $producto->categoria_id ? 'color:'.$categoria->color : '' }}"
+                        data-id="{{ $categoria->id }}"
+                        data-color="{{ $categoria->color }}">
                             {{ $categoria->categoria }}
                         </a>
                     </div>
                 @endforeach
             </div>
+
+            {{-- Select desplegable para sm --}}
+            <div class="lg:hidden">
+                <select class="w-full border rounded p-2" onchange="location = this.value;">
+                    @foreach ($categorias as $categoria)
+                        <option value="{{ route('productos', ['categoria' => $categoria->id]) }}"
+                            {{ $categoria->id == $producto->categoria_id ? 'selected' : '' }}>
+                            {{ $categoria->categoria }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
         </div>
 
         {{-- Producto --}}
-        <div class="w-3/4 flex flex-col gap-[14px] ">
+        <div class="w-full lg:w-3/4 flex items-center lg:items-start flex-col gap-[14px] ">
             {{-- Imagen y detalle --}}
-            <div class="flex gap-4">
+            <div class="flex flex-col lg:flex-row gap-4">
                 {{-- Imagen principal --}}
-                <div class="h-[390px] w-[390px] border rounded-[8px] overflow-hidden flex-shrink-0 relative">
+                <div class="h-[390px] w-full sm:w-[390px] border rounded-[8px] overflow-hidden flex-shrink-0 relative mx-auto">
                     <img id="foto-principal"
                         src="{{ $producto->fotos->first()->foto ?? $producto->foto_producto }}"
                         alt="Foto principal"
-                        class="h-full w-full object-cover transition-all duration-300">
+                        class="h-full w-full object-center sm:object-cover transition-all duration-300">
                 </div>
 
                 {{-- Detalle del producto --}}
-                <div class="flex flex-col flex-1">
+                <div class="flex flex-col ">
                     <h1 class="text-[32px]">{{ $producto->nombre }}</h1>
                     <hr class="mb-[25px]">
-                    <h3>{{ $producto->detalle }}</h3>
-                    <div class="flex justify-between mt-auto gap-4">
+                    <h3>{!! $producto->detalle !!}</h3>
+                    <div class="flex flex-col sm:flex-row justify-between mt-[20px] lg:mt-auto  gap-4 ">
                         @if($producto->ficha_tecnica)
                             <a href="{{ $producto->ficha_tecnica }}" target="_blank"
-                            class="w-[233px] h-[41px] text-[16px] text-[#0A3858] border border-[#0A3858] rounded-[20px] flex justify-center items-center">
+                            class="w-full sm:w-[233px] h-[41px] text-[16px] text-[#0A3858] border border-[#0A3858] rounded-[20px] flex justify-center items-center">
                                 Ficha técnica
                             </a>
                         @endif
                         <a href="{{ route('solicitud') }}"
-                        class="w-[233px] h-[41px] text-[16px] bg-[#0A3858] text-white rounded-[20px] flex justify-center items-center">
+                        class="w-full sm:w-[233px] h-[41px] text-[16px] bg-[#0A3858] text-white rounded-[20px] flex justify-center items-center">
                             Solicitar presupuesto
                         </a>
                     </div>
@@ -94,7 +110,7 @@
             {{-- Productos relacionados --}}
             <div class="flex flex-col mt-12">
                 <h1 class="text-[32px] mb-[24px]">Productos relacionados</h1>
-                <div class="flex gap-4">
+                <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     @foreach ($otrosProductos as $rel)
                         <a href="{{ route('productos-detalle', ['id' => $rel->id]) }}"
                            class="flex flex-col border border-[#DEDFE0] rounded-[12px] text-center producto-item 
@@ -120,7 +136,7 @@
                 </div>
             </div>
 
-        </div>
+    </div>
 
     </div>
 </div>
@@ -130,42 +146,49 @@
 document.addEventListener('DOMContentLoaded', () => {
     const categorias = document.querySelectorAll('.categoria-btn');
     const productos = document.querySelectorAll('.producto-item');
-    
-    // Usar la categoría seleccionada desde el backend o la primera por defecto
-    let selectedId = "{{ $categoria_seleccionada ?? ($categorias->first()->id ?? '') }}";
+    const select = document.getElementById('categoria-select');
 
-    // Marcar la categoría seleccionada
+    // Categoría seleccionada inicialmente
+    let selectedId = "{{ $producto->categoria_id ?? ($categorias->first()->id ?? '') }}";
+
+    // Función para filtrar productos y actualizar estilos
+    function filtrarProductos(id) {
+        // Mostrar/ocultar productos
+        productos.forEach(p => {
+            p.style.display = (p.dataset.categoria == id) ? 'flex' : 'none';
+        });
+
+        // Actualizar estilos de botones
+        categorias.forEach(c => {
+            if(c.dataset.id == id){
+                c.classList.add('font-bold');
+                c.style.color = c.dataset.color;
+            } else {
+                c.classList.remove('font-bold');
+                c.style.color = '';
+            }
+        });
+
+        // Actualizar select
+        if(select) select.value = id;
+    }
+
+    // Filtrado inicial
+    filtrarProductos(selectedId);
+
+    // Click en botones
     categorias.forEach(c => {
-        if(c.dataset.id === selectedId){
-            c.classList.add('font-bold');
-            c.style.color = c.dataset.color;
-        }
-
         c.addEventListener('click', () => {
-            const id = c.dataset.id;
-            const color = c.dataset.color;
-
-            // Resetear estilos de todas
-            categorias.forEach(cc => {
-                cc.classList.remove('font-bold');
-                cc.style.color = '';
-            });
-
-            // Marcar la seleccionada
-            c.classList.add('font-bold');
-            c.style.color = color;
-
-            // Filtrar productos
-            productos.forEach(p => {
-                p.style.display = (p.dataset.categoria === id) ? 'flex' : 'none';
-            });
+            filtrarProductos(c.dataset.id);
         });
     });
 
-    // Filtrar productos al cargar la página
-    productos.forEach(p => {
-        p.style.display = (p.dataset.categoria === selectedId) ? 'flex' : 'none';
-    });
+    // Cambio en select
+    if(select){
+        select.addEventListener('change', () => {
+            filtrarProductos(select.value);
+        });
+    }
 
     // --- Carrusel de fotos ---
     const miniFotos = document.querySelectorAll('.mini-foto');
@@ -173,13 +196,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     miniFotos.forEach(foto => {
         foto.addEventListener('click', () => {
-            // Cambiar imagen principal
             fotoPrincipal.src = foto.src;
-
-            // Quitar borde de todas las miniaturas
             miniFotos.forEach(f => f.classList.remove('border-[#0A3858]'));
-
-            // Marcar la miniatura seleccionada
             foto.classList.add('border-[#0A3858]');
         });
     });

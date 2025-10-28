@@ -18,7 +18,7 @@
             </div>
             <hr class="my-3">
             
-            <form method="POST" action="{{ route('adm.institucional-persona-update') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('adm.institucional-persona-update') }}" enctype="multipart/form-data" @submit.prevent="handleSubmit">
                 @csrf
                 <input type="hidden" name="personas_id" value="{{ $persona->id ?? '' }}">
 
@@ -46,20 +46,39 @@
                             class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
 
+                    
                     <div class="mb-4">
                         <label class="block text-gray-700 font-medium mb-2" for="texto1">Texto izquierda</label>
-                        <input type="text" id="texto1" name="texto1" placeholder="Texto" value="{{ $persona->texto1 ?? '' }}"
-                            class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+                        {{-- 🔽 Editor Quill --}}
+                        <div class="quill-editor bg-white" data-field="texto1" style="height: 150px;">
+                            {!! $persona->texto1 ?? '' !!}
+                        </div>
+
+                        {{-- Campo oculto que guarda el HTML del Quill --}}
+                        <input type="hidden" name="texto1" id="texto1">
                     </div>
 
                     <div class="mb-4">
                         <label class="block text-gray-700 font-medium mb-2" for="texto2">Texto derecha</label>
-                        <input type="text" id="texto2" name="texto2" placeholder="Texto" value="{{ $persona->texto2 ?? '' }}"
-                            class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+                        {{-- 🔽 Editor Quill --}}
+                        <div class="quill-editor bg-white" data-field="texto2" style="height: 150px;">
+                            {!! $persona->texto2 ?? '' !!}
+                        </div>
+
+                        {{-- Campo oculto que guarda el HTML del Quill --}}
+                        <input type="hidden" name="texto2" id="texto2">
                     </div>
+
                 </div>
                 <button type="submit" class="border rounded p-4">Actualizar</button>
             </form>
         </div>            
     </div>
 @endsection
+
+
+@push('scripts')
+    @include('includes.quill-init')
+@endpush

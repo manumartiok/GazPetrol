@@ -63,7 +63,7 @@
                             <label class="block text-gray-700 font-medium mb-2" for="descripcion">Descripcion</label>
                             
                             {{-- Editor Quill --}}
-                            <div id="editor-container" style="height: 200px;">
+                            <div class="quill-editor bg-white" data-field="descripcion" style="height: 200px;">
                                 {!! $nosotro->descripcion ?? '' !!}
                             </div>
                             
@@ -162,94 +162,5 @@
 </div>
     @endsection
 @push('scripts')
-<script>
-    setTimeout(function() {
-        if (typeof Quill === 'undefined') {
-            console.error('ERROR: Quill no está cargado');
-            return;
-        }
-
-        // Configuración común
-        const toolbarConfig = [
-            ['bold', 'italic', 'underline'],
-            [{ 'color': [] }, { 'background': [] }],
-            [{ 'size': ['small', false, 'large', 'huge'] }],
-            [{ 'align': [] }],
-            ['clean']
-        ];
-
-        const editores = [];
-
-        // Inicializar el editor de descripción (que tiene ID único)
-        const descripcionContainer = document.getElementById('editor-container');
-        if (descripcionContainer) {
-            const quillDescripcion = new Quill('#editor-container', {
-                theme: 'snow',
-                modules: { toolbar: toolbarConfig },
-                placeholder: 'Escribe la descripción aquí...'
-            });
-            editores.push({
-                quill: quillDescripcion,
-                fieldName: 'descripcion',
-                inputId: 'descripcion'
-            });
-            console.log('✓ Editor descripción inicializado');
-        }
-
-        // Inicializar TODOS los editores con clase 'quill-editor'
-        document.querySelectorAll('.quill-editor').forEach(function(container) {
-            const fieldName = container.dataset.field;
-            
-            const quill = new Quill(container, {
-                theme: 'snow',
-                modules: { toolbar: toolbarConfig },
-                placeholder: 'Escribe aquí...'
-            });
-
-            editores.push({
-                quill: quill,
-                fieldName: fieldName,
-                container: container
-            });
-            
-            console.log('✓ Editor', fieldName, 'inicializado');
-        });
-
-        console.log('✓ Total de editores inicializados:', editores.length);
-
-        // Función global para guardar TODOS los editores
-        window.guardarContenidoQuill = function() {
-            let contador = 0;
-            
-            editores.forEach(function(editor) {
-                let contenido = editor.quill.root.innerHTML;
-                
-                // Si está vacío, poner un espacio
-                if (contenido === '<p><br></p>' || contenido.trim() === '') {
-                    contenido = ' ';
-                }
-                
-                // Buscar el input hidden correspondiente
-                let input;
-                if (editor.inputId) {
-                    // Para el de descripción que tiene ID
-                    input = document.getElementById(editor.inputId);
-                } else {
-                    // Para los que tienen data-field
-                    input = document.querySelector('input[name="' + editor.fieldName + '"]');
-                }
-                
-                if (input) {
-                    input.value = contenido;
-                    contador++;
-                    console.log('✓ Guardado', editor.fieldName, ':', contenido.substring(0, 30) + '...');
-                }
-            });
-            
-            console.log('✓ Total editores guardados:', contador);
-            return true;
-        };
-        
-    }, 1000);
-</script>
+@include('includes.quill-init')
 @endpush

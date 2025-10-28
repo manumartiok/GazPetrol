@@ -20,13 +20,15 @@
 </div>
 
 {{-- contenido --}}
-<div class=" nunitosans w-full max-w-[1366px] mx-auto px-[73px] pt-[80px] pb-[50px] gap-[24px] flex">
+<div class=" nunitosans w-full max-w-[1366px] mx-auto px-[73px] pt-[80px] pb-[50px] gap-[24px] flex flex-col md:flex-row">
 
-    {{-- categorias --}}
-    <div class="w-1/4">
+   {{-- Categorías --}}
+    <div class="w-full md:w-1/4">
         <h1 class="text-[#1A181C]/50">CATEGORÍAS</h1>
         <hr class="my-[20px]">
-        <div class="flex flex-col gap-[20px]">
+
+        {{-- Lista vertical para md+ --}}
+        <div class="hidden md:flex flex-col gap-[20px]">
             @foreach ($categorias as $categoria)
                 <div>
                     <button class="categoria-btn cursor-pointer" data-id="{{ $categoria->id }}" data-color="{{ $categoria->color }}">
@@ -35,10 +37,23 @@
                 </div>
             @endforeach
         </div>
+
+        {{-- Select desplegable para sm --}}
+        <div class="md:hidden">
+            <select class="w-full border rounded p-2" onchange="handleCategoriaSelect(this)">
+                <option value="">Seleccione categoría</option>
+                @foreach ($categorias as $categoria)
+                    <option value="{{ $categoria->id }}" data-color="{{ $categoria->color }}">
+                        {{ $categoria->categoria }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
     </div>
 
+
     {{-- productos --}}
-    <div class="w-3/4">
+    <div class="w-full md:w-3/4">
         <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[24px] justify-center">
             @foreach ($productos as $producto)
                 <a href="{{ route('productos-detalle', ['id' => $producto->id, 'categoria' => $producto->categoria_id]) }}"
@@ -84,38 +99,47 @@ document.addEventListener('DOMContentLoaded', () => {
     // Tomar la categoría seleccionada desde backend o fallback a la primera
     let selectedId = "{{ $categoria_seleccionada ?? $categorias->first()->id }}";
 
-    // Marcar la categoría seleccionada
-    categorias.forEach(c => {
-        if(c.dataset.id == selectedId){
-            c.classList.add('font-bold');
-            c.style.color = c.dataset.color;
-        }
+    // Función para filtrar productos
+    function filtrarProductos(id) {
+        productos.forEach(p => {
+            p.style.display = (p.dataset.categoria == id) ? 'flex' : 'none';
+        });
 
+        // Actualizar estilos de botones
+        categorias.forEach(c => {
+            if(c.dataset.id == id){
+                c.classList.add('font-bold');
+                c.style.color = c.dataset.color;
+            } else {
+                c.classList.remove('font-bold');
+                c.style.color = '';
+            }
+        });
+
+        // Actualizar select si es llamado desde botón
+        const select = document.querySelector('select');
+        if(select) select.value = id;
+    }
+
+    // Inicialmente filtrar
+    filtrarProductos(selectedId);
+
+    // Click en botones
+    categorias.forEach(c => {
         c.addEventListener('click', () => {
             const id = c.dataset.id;
-            const color = c.dataset.color;
-
-            // Resetear todas
-            categorias.forEach(cc => {
-                cc.classList.remove('font-bold');
-                cc.style.color = '';
-            });
-
-            // Marcar la seleccionada
-            c.classList.add('font-bold');
-            c.style.color = color;
-
-            // Mostrar productos de esa categoría
-            productos.forEach(p => {
-                p.style.display = (p.dataset.categoria == id) ? 'flex' : 'none';
-            });
+            filtrarProductos(id);
         });
     });
 
-    // Filtrar productos al cargar la página según categoría seleccionada
-    productos.forEach(p => {
-        p.style.display = (p.dataset.categoria == selectedId) ? 'flex' : 'none';
-    });
+    // Cambio en select
+    const select = document.querySelector('select');
+    if(select){
+        select.addEventListener('change', () => {
+            const id = select.value;
+            filtrarProductos(id);
+        });
+    }
 });
 </script>
 

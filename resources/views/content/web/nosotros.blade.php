@@ -23,16 +23,16 @@
 <div>
     {{-- nosotros  --}}
     <div class="h-full nunitosans max-w-[1366px] mx-auto px-[73px] pt-[100px] pb-[50px] flex flex-col justify-center">
-        <div class="flex w-full gap-[34px]">
+        <div class="flex flex-col lg:flex-row w-full gap-[34px] text-center lg:text-start">
             {{-- texto  --}}
-            <div class="w-1/2">
+            <div class="w-full lg:w-1/2">
                 <h3 class="text-[16px] font-bold text-[#5FBB46]">{{$nosotros->texto_chico1}}</h3>
                 <h1 class="text-[32px] font-bold text-[#0A3858] mb-2">{{$nosotros->texto_grande1}}</h1>
                 <h4>{!! $nosotros->descripcion !!}</h4>
             </div>
             {{-- Foto  --}}
-            <div class="w-1/2 flex flex-grow">
-                <img src="{{$nosotros->foto}}" alt="">
+            <div class="w-full lg:w-1/2 flex flex-grow">
+                <img src="{{$nosotros->foto}}" alt="" class="w-full">
             </div>
         </div>
     </div>
@@ -40,20 +40,20 @@
     <div class="h-full w-full bg-[#F5F5F5] mb-[50px] ">
         <div class="nunitosans max-w-[1366px] mx-auto px-[73px] pt-[56px] pb-[115px] flex flex-col">
             {{-- encabezado  --}}
-            <div class="flex flex-col">
+            <div class="flex flex-col text-center lg:text-start">
                 <h1 class="text-[16px] font-bold text-[#5FBB46]">{{$nosotros->texto_chico2}}</h1>
                 <h2 class="text-[32px] font-bold text-[#0A3858] mb-[24px]">{{$nosotros->texto_grande2}}</h2>
             </div>
             {{-- detalles  --}}
             <div class="flex flex-col gap-[30px] mb-[30px]">
                 {{-- arriba  --}}
-                <div class="w-full flex gap-[24px] ">
-                    <div class="w-1/2 flex flex-col items-center text-center bg-[#FFFFFF] px-[125px] pt-[70px] pb-[45px] gap-[30px]">
+                <div class="w-full flex flex-col lg:flex-row gap-[24px] ">
+                    <div class="w-full lg:w-1/2 flex flex-col items-center text-center bg-[#FFFFFF] px-[125px] pt-[70px] pb-[45px] gap-[30px]">
                         <img src="{{$nosotros->icono1}}" alt="">
                         <h1 class="text-[20px] font-bold text-[#0A3858]">{{$nosotros->nombre_icono1}}</h1>
                         <h3>{!! $nosotros->texto_icono1 !!}</h3>
                     </div>
-                    <div class="w-1/2 flex flex-col items-center text-center bg-[#FFFFFF] px-[125px] pt-[70px] pb-[45px] gap-[30px]">
+                    <div class="w-full lg:w-1/2 flex flex-col items-center text-center bg-[#FFFFFF] px-[125px] pt-[70px] pb-[45px] gap-[30px]">
                         <img src="{{$nosotros->icono2}}" alt="">
                         <h1 class="text-[20px] font-bold text-[#0A3858]">{{$nosotros->nombre_icono2}}</h1>
                         <h3>{!! $nosotros->texto_icono2 !!}</h3>
@@ -68,7 +68,7 @@
             </div>
             {{-- video  --}}
             <div>
-               <video src="{{ $nosotros->video }}" class="w-full  mx-auto h-[688px]" controls  {{-- muestra los controles de reproducción --}}
+               <video src="{{ $nosotros->video }}" class="w-full  mx-auto h-auto lg:h-[688px]" controls  {{-- muestra los controles de reproducción --}}
                     preload="metadata"  {{-- carga solo metadatos al inicio --}}> 
                     Tu navegador no soporta la etiqueta video.
                 </video>

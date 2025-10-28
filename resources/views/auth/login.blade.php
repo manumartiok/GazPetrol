@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Admin</title>
+        {{-- favicon  --}}
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png')}}">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 flex flex-col items-center justify-center h-screen gap-10">
+<body class="bg-black/10 flex flex-col items-center justify-center h-screen gap-10">
 
             @if(isset($logoutMessage))
             <div class="text-green-600 mb-4">
@@ -19,7 +21,7 @@
                 {{ $errors->first() }}
             </div>
         @endif
-        <div><img src="" alt="Foto"></div>
+        <div><img src="{{ asset('assets/img/gazpetrol.png')}}" alt="Foto" class="w-[240px] h-[90px]"></div>
         <div class="bg-white p-8 w-1/3 rounded-xl shadow-md  mb-[70px]">
             {{-- Login Form --}}
             <form id="loginForm" action="{{ route('login.post') }}" method="POST">

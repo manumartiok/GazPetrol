@@ -67,57 +67,49 @@
         
     </div>
     {{-- Institucional --}}
-    <div class="h-auto md:h-[747px] bg-[#F5F5F5]"> 
-        <div class="h-full nunitosans max-w-[1366px] mx-auto px-[73px] flex flex-col justify-center">
+    <div class="h-auto bg-[#F5F5F5] py-10">
+        <div class="nunitosans max-w-[1366px] mx-auto px-[40px] flex flex-col justify-center">
             <div>
-                <h3  class="text-[16px] font-bold text-[#5FBB46]">{{$casa->texto2}}</h3>
+                <h3 class="text-[16px] font-bold text-[#5FBB46]">{{$casa->texto2}}</h3>
             </div>
             <div>
-                <h1  class="text-[32px] font-bold text-[#0A3858]">{{$casa->sub_text2}}</h1>
+                <h1 class="text-[32px] font-bold text-[#0A3858]">{{$casa->sub_text2}}</h1>
             </div>
-            <div>
-                    @php
-                        $chunkedInstitucional = $institucionales->chunk(3); // Divide en bloques de 3
-                    @endphp
-                <div id="institucionalSlider" class="relative overflow-hidden mt-4">
-                    <div class="flex transition-transform duration-500" style="width: {{ $chunkedInstitucional->count() * 100 }}%;">
-                        @foreach($chunkedInstitucional as $chunkIndex => $chunk)
-                            <div class="flex justify-center gap-4" style="width: {{ 100 / $chunkedInstitucional->count() }}%;">
-                                @foreach($chunk as $item)
-                                    <div class="bg-white shadow rounded-[12px] w-full max-w-[392px] h-[487px] flex flex-col items-center">
-                                        <img src="{{ asset($item->foto) }}" alt="{{ $item->titulo }}" class="w-full h-[260px] object-cover rounded">
-                                        <div class="w-full h-full px-[25px] pt-[17px]">
-                                            <h4 class="font-bold text-[24px] text-start truncate">{{ $item->titulo }}</h4>
-                                            <p class="text-start text-[16px] overflow-hidden text-ellipsis mt-[10px]" style="
-                                                display: -webkit-box;
-                                                -webkit-line-clamp: 3;
-                                                -webkit-box-orient: vertical;
-                                                line-height: 1.2em;
-                                                max-height: 3.6em;
-                                            ">
-                                                {{ $item->texto }}
-                                            </p>
-                                        </div>
-                                        <a href="{{route('institucional')}}" class="text-[16px] text-black/50 px-[25px] mb-[34px] w-full flex justify-start hover:scale-100 hover:underline mt-0">Leer más</a>
-                                    </div>
-                                @endforeach
-                            </div>
-                        @endforeach
-                    </div>
 
-
-                        {{-- Selector inferior --}}
-                        @if($chunkedInstitucional->count() > 1)
-                            <div class="flex justify-center mt-4 space-x-2">
-                                @foreach($chunkedInstitucional as $index => $chunk)
-                                    <span class="slider-dot h-[6px] w-[44px] cursor-pointer {{ $index === 0 ? 'bg-[#CCCCCC]' : 'bg-[#CCCCCC]/30' }}" data-index="{{ $index }}"></span>
-                                @endforeach
+            {{-- Slider --}}
+            <div id="institucionalSlider" class="relative overflow-hidden mt-6">
+                <div id="sliderTrack" class="flex transition-transform duration-500 ease-in-out">
+                    @foreach($institucionales as $item)
+                        <div class="flex-shrink-0 px-2 w-full md:w-1/2 lg:w-1/3">
+                            <div class="bg-white shadow rounded-[12px] h-[487px] flex flex-col items-center">
+                                <img src="{{ asset($item->foto) }}" alt="{{ $item->titulo }}" class="w-full h-[260px] object-cover rounded">
+                                <div class="w-full h-full px-[25px] pt-[17px]">
+                                    <h4 class="font-bold text-[24px] text-start truncate">{{ $item->titulo }}</h4>
+                                    <h1 class="text-start text-[16px] overflow-hidden text-ellipsis mt-[10px]"
+                                    style="
+                                            display: -webkit-box;
+                                            -webkit-line-clamp: 3;
+                                            -webkit-box-orient: vertical;
+                                            line-height: 1.2em;
+                                            max-height: 3.6em;
+                                    ">
+                                        {!! $item->texto !!}
+                                </h1>
+                                </div>
+                                <a href="{{ route('institucional') }}" class="text-[16px] text-black/50 px-[25px] mb-[34px] w-full flex justify-start hover:underline hover:scale-100">
+                                    Leer más
+                                </a>
                             </div>
-                        @endif
-                    </div>
+                        </div>
+                    @endforeach
                 </div>
+
+                {{-- Dots --}}
+                <div id="sliderDots" class="flex justify-center mt-4 space-x-2"></div>
+            </div>
         </div>
     </div>
+
     {{-- clientes --}}
     <div class="h-auto lg:h-[332px] my-[40px] lg:my-0">
         <div class="h-full nunitosans max-w-[1366px] mx-auto px-[73px] flex flex-col justify-center">
@@ -130,13 +122,15 @@
                 </div>
                     <a href="{{route('clientes')}}" class="w-[111px] h-[41px] flex justify-center items-center border border-[#0A3858] rounded-[20px] text-[16px] text-[#0A3858] shadow-md hover:shadow-lg">Ver todas</a>
             </div>
-                <div class="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-[76px]">
+            <div class="w-full flex justify-center">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-[76px]">
                     @foreach($agrupados as $cliente)
-                            <div class="w-[184px] h-[142px] border rounded-[8px] flex items-center justify-center filter grayscale hover:grayscale-0 transition duration-300">
-                                <img src="{{ $cliente->foto }}" alt="{{ $cliente->texto }}" class=" object-center">
-                            </div>
+                        <div class="w-[184px] h-[142px] border rounded-[8px] flex items-center justify-center filter grayscale hover:grayscale-0 transition duration-300">
+                            <img src="{{ $cliente->foto }}" alt="{{ $cliente->texto }}" class="object-center">
+                        </div>
                     @endforeach
                 </div>
+            </div>
         </div>
     </div>
 
@@ -180,37 +174,45 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
  // -------- Institucional Slider --------
-const institucionalSlider = document.querySelector('#institucionalSlider > div');
-const institucionalDots = document.querySelectorAll('#institucionalSlider .slider-dot');
-let institucionalCurrent = 0;
-const institucionalTotal = {{ $chunkedInstitucional->count() }};
+    const track = document.getElementById('sliderTrack');
+    const dotsContainer = document.getElementById('sliderDots');
+    const items = track.children;
+    let currentIndex = 0;
+    let itemsPerView = getItemsPerView();
 
-function goToInstitucionalSlide(index) {
-    // Evitamos índices fuera de rango
-    if (index < 0) index = 0;
-    if (index > institucionalTotal - 1) index = institucionalTotal - 1;
+    function getItemsPerView() {
+        if (window.innerWidth >= 1024) return 3; // lg
+        if (window.innerWidth >= 768) return 2; // md
+        return 1; // sm
+    }
 
-    // calcular el porcentaje respecto al ancho del wrapper
-    const shiftPercent = index * (100 / institucionalTotal);
+    function updateSlider() {
+        const totalItems = items.length;
+        const totalPages = Math.ceil(totalItems / itemsPerView);
+        const translateX = -(currentIndex * 100) / totalPages;
+        track.style.transform = `translateX(${translateX}%)`;
 
-    institucionalSlider.style.transform = `translateX(-${shiftPercent}%)`;
+        dotsContainer.innerHTML = '';
+        for (let i = 0; i < totalPages; i++) {
+            const dot = document.createElement('span');
+            dot.className = `h-[6px] w-[44px] cursor-pointer transition-colors duration-300 ${
+                i === currentIndex ? 'bg-[#CCCCCC]' : 'bg-[#CCCCCC]/30'
+            }`;
+            dot.addEventListener('click', () => {
+                currentIndex = i;
+                updateSlider();
+            });
+            dotsContainer.appendChild(dot);
+        }
+    }
 
-    institucionalDots.forEach((dot, i) => {
-        dot.classList.toggle('bg-[#CCCCCC]', i === index);
-        dot.classList.toggle('bg-[#CCCCCC]/30', i !== index);
+    window.addEventListener('resize', () => {
+        itemsPerView = getItemsPerView();
+        currentIndex = 0;
+        updateSlider();
     });
 
-    institucionalCurrent = index;
-}
-
-// inicializar: mostrar primer slide y estado de dots
-goToInstitucionalSlide(0);
-
-institucionalDots.forEach(dot => {
-    dot.addEventListener('click', () => {
-        goToInstitucionalSlide(parseInt(dot.dataset.index));
-    });
-});
+    updateSlider();
 });
 </script>
 @endsection

@@ -54,7 +54,7 @@
                                         <p>No hay imagen disponible.</p>
                                     @endif
                                 </td>
-                                <td class="px-4 py-3 w-64 max-w-64 truncate text-center">{{$producto->detalle}}</td>
+                                <td class="px-4 py-3 w-64 max-w-64 overflow-hidden text-center" style="max-height: 3.6em;">{!!$producto->detalle!!}</td>
                                 <td class="px-4 py-3 text-center">
                                     @if ($producto->active)
                                         <a href="{{ route('adm.productos-switch', $producto->id) }}" class="badge bg-green-400 text-white px-4 py-2 rounded">

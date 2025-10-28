@@ -36,22 +36,23 @@
             <div class="flex flex-col items-center md:items-start w-full md:w-1/3 gap-[18px]">
                @foreach($redes as $red)
                     <div class="flex gap-[10px] items-center">
-                       <i class="{{$red->icono}} text-green-400 "></i><a href="{{$red->url}}"><h3 class=" ">{{$red->nombre}}</h3></a> 
+                       <i class="{{$red->icono}} text-green-400 "></i><a href="{{$red->url}}"><h3 class="text-[16px]">{{$red->nombre}}</h3></a> 
                     </div>
                @endforeach
             </div>
             {{-- formulario --}}
             <div class="w-full md:w-2/3">
-                <form action="" class="w-full flex flex-col gap-8">
+                <form id="formContacto" action="{{ route('form.contacto') }}" method="POST" enctype="multipart/form-data" class="w-full flex flex-col gap-8">
+                @csrf
                 <!-- Fila 1 -->
                 <div class="flex flex-col md:flex-row gap-6">
                     <div class="w-full md:w-1/2 flex flex-col gap-2">
                         <label for="nombre" class="text-[16px] font-normal text-[#000]">Nombre*</label>
-                        <input type="text" id="nombre" class="h-[48px] border border-[#DCDCDC] rounded-full px-4 focus:outline-none" required>
+                        <input type="text" id="nombre" name="nombre" class="h-[48px] border border-[#DCDCDC] rounded-full px-4 focus:outline-none" required>
                     </div>
                     <div class="w-full md:w-1/2 flex flex-col gap-2">
                         <label for="apellido" class="text-[16px] font-normal text-[#000]">Apellido*</label>
-                        <input type="text" id="apellido" class="h-[48px] border border-[#DCDCDC] rounded-full px-4 focus:outline-none" required>
+                        <input type="text" id="apellido" name="apellido" class="h-[48px] border border-[#DCDCDC] rounded-full px-4 focus:outline-none" required>
                     </div>
                 </div>
 
@@ -59,11 +60,14 @@
                 <div class="flex flex-col md:flex-row gap-6">
                     <div class="w-full md:w-1/2 flex flex-col gap-2">
                         <label for="email" class="text-[16px] font-normal text-[#000]">Email*</label>
-                        <input type="email" id="email" class="h-[48px] border border-[#DCDCDC] rounded-full px-4 focus:outline-none" required>
+                        <input type="email" id="email" name="email" class="h-[48px] border border-[#DCDCDC] rounded-full px-4 focus:outline-none" required>
                     </div>
                     <div class="w-full md:w-1/2 flex flex-col gap-2">
                         <label for="celular" class="text-[16px] font-normal text-[#000]">Celular</label>
-                        <input type="text" id="celular" class="h-[48px] border border-[#DCDCDC] rounded-full px-4 focus:outline-none">
+                        <input type="tel" id="celular" name="celular" 
+                            pattern="[0-9]*" 
+                            inputmode="numeric"
+                            class="h-[48px] border border-[#DCDCDC] rounded-full px-4 focus:outline-none">
                     </div>
                 </div>
 
@@ -71,7 +75,7 @@
                 <div class="flex flex-col md:flex-row gap-6">
                     <div class="w-full md:w-1/2 flex flex-col gap-2">
                         <label for="mensaje" class="text-[16px] font-normal text-[#000]">Mensaje</label>
-                        <textarea id="mensaje" rows="5" class=" border border-[#DCDCDC] rounded-[22px] px-4 py-3 focus:outline-none resize-none"></textarea>
+                        <textarea id="mensaje" name="mensaje" rows="5" class=" border border-[#DCDCDC] rounded-[22px] px-4 py-3 focus:outline-none resize-none"></textarea>
                     </div>
                     <div class="w-full md:w-1/2 flex flex-col justify-between gap-4 md:pl-[15px]">
                         <h2 class="text-[16px] text-[#000] mt-[25px]">*Datos obligatorios</h2>
@@ -101,6 +105,68 @@
     </div>
 </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const formContacto = document.getElementById('formContacto');
+    const celularInput = document.getElementById('celular');
 
+    // Permitir solo números en celular
+    celularInput.addEventListener('input', function(e) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
+    formContacto.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando...';
+
+        fetch(this.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Mensaje enviado!',
+                    text: data.message || 'Tu consulta ha sido enviada exitosamente.',
+                    confirmButtonColor: '#5FBB46'
+                });
+                formContacto.reset();
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: data.message || 'Hubo un problema al enviar tu consulta.',
+                    confirmButtonColor: '#0A3858'
+                });
+            }
+        })
+        .catch(error => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Ocurrió un error. Por favor, intenta nuevamente.',
+                confirmButtonColor: '#0A3858'
+            });
+        })
+        .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+        });
+    });
+
+    
+});
+</script>
 
 @endsection

@@ -18,7 +18,7 @@
             </div>
             <hr class="my-3">
             
-            <form method="POST" action="{{ route('adm.institucional-store') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('adm.institucional-store') }}" enctype="multipart/form-data" @submit.prevent="handleSubmit">
                 @csrf
                 <input type="hidden" name="institucionales_id" value="{{ $institucional->id ?? '' }}">
 
@@ -38,9 +38,11 @@
                         <input type="text" id="titulo" name="titulo" placeholder="¿Quiénes somos?" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     </div>
 
+                    {{-- 🔽 Editor Quill para el detalle --}}
                     <div class="mb-4">
                         <label class="block text-gray-700 font-medium mb-2" for="texto">Texto</label>
-                        <input type="text" id="texto" name="texto" placeholder="¿Quiénes somos?" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <div class="quill-editor bg-white" data-field="texto" style="height: 150px;"></div>
+                        <input type="hidden" name="texto" id="texto">
                     </div>
                 </div>
                 <button type="submit" class="border rounded p-4">Actualizar</button>
@@ -48,3 +50,8 @@
         </div>            
     </div>
 @endsection
+
+
+@push('scripts')
+    @include('includes.quill-init')
+@endpush

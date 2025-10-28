@@ -93,7 +93,7 @@
     <!-- footer  -->
     <footer class=" nunitosans text-white min-h-[348px] h-[348px]  flex flex-col justify-between bg-[#0A3858] ">
 
-        <div class="h-full w-full max-w-[1366px] mx-auto px-[73px] pt-[45px] pb-[35px] flex justify-center lg:justify-between ">
+        <div class="h-full w-full max-w-[1366px] mx-auto px-[73px] pt-[45px] pb-[35px] flex flex-col lg:flex-row justify-center lg:justify-between items-center lg:items-start">
             <div class="">
                     <img src="{{$logos->foto_footer}}" alt="" class="h-[53px] w-[222px]">
             </div>
@@ -110,16 +110,19 @@
                     </div>
                 </ul>
             </div>
-            <div class=" flex flex-col pt-[15px] gap-[30px]">
+            <div class=" flex flex-col text-center lg:text-start pt-[15px] gap-[10px] lg:gap-[30px]">
                 <h3 class="text-[20px] font-[700]">Suscribite al Newsletter</h3>
-                <form class="flex h-[45px] w-full md:w-[298px] bg-[#0A3858] border  rounded-[20px] overflow-hidden">
-                    <input type="email" placeholder="Email" class="flex-1 px-4 text-white bg-[#0A3858] focus:outline-none">
+                <form action="{{route('adm.newsletter-store')}}" id="newsletterForm" method="POST" class="flex h-[45px] w-full md:w-[298px] bg-[#0A3858] border rounded-[20px] overflow-hidden">
+                    @csrf
+                    <input type="email" id="newsletterEmail" name="email" placeholder="Email" required
+                        class="flex-1 px-4 text-white bg-[#0A3858] focus:outline-none border border-transparent rounded-[20px] transition duration-300">
                     <button type="submit" class="flex items-center justify-center px-4 bg-[#0A3858]">
-                        <i class="fa-solid fa-arrow-right  "></i>
+                        <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </form>
+
             </div>
-            <div class="flex flex-col pt-[15px]  gap-[30px]">
+            <div class="flex flex-col text-center lg:text-start pt-[15px] gap-[10px] lg:gap-[30px]">
                 <h3 class="text-[20px] font-[700]">Contacto</h3>
                 <div class=" flex flex-col items-start gap-[20px] px-[5%] lg:px-[0%]">
                     @foreach($redes as $red)
@@ -157,7 +160,67 @@
             // Mostrar / ocultar el menú móvil
             mobileMenu.classList.toggle('hidden');
         });
+
     });
     </script>
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const newsletterForm = document.getElementById('newsletterForm');
+    const emailInput = document.getElementById('newsletterEmail');
+
+    newsletterForm.addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevenir recarga de página
+
+        const formData = new FormData(this);
+
+        // Deshabilitar botón mientras se procesa
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalHTML = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+
+        fetch(this.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Suscripción exitosa!',
+                    text: data.message,
+                    confirmButtonColor: '#5FBB46'
+                });
+                emailInput.value = ''; // Limpiar campo
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: data.message,
+                    confirmButtonColor: '#0A3858'
+                });
+            }
+        })
+        .catch(error => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Ocurrió un error. Por favor, intenta nuevamente.',
+                confirmButtonColor: '#0A3858'
+            });
+        })
+        .finally(() => {
+            // Rehabilitar botón
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalHTML;
+        });
+    });
+});
+</script>
 </body>
 </html>

@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('productos', function (Blueprint $table) {
+        Schema::create('newsletters', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('categoria_id');
-            $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
             $table->string('orden')->nullable();
-            $table->string('foto_producto');
-            $table->string('nombre');
-            $table->text('detalle')->nullable();
-            $table->string('ficha_tecnica')->nullable();
+            $table->string('email');
             $table->boolean('active')->default(true);
             $table->timestamps();
         });
@@ -30,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('productos');
+        Schema::dropIfExists('newsletters');
     }
 };

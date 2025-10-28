@@ -39,7 +39,7 @@
                     @endif
                 </td>
                 <td class="px-4 py-3">{{$comercio->titulo}}</td>
-                <td class="px-4 py-3 w-64 max-w-64 truncate">{{$comercio->texto}}</td>
+                <td class="px-4 py-3 w-64 max-w-64 truncate">{!! $comercio->texto !!}</td>
                 <td class="px-4 py-3 text-center">
                   @if ($comercio->active)
                   <a href="{{route('adm.comercializacion-switch', $comercio->id)}}" class="badge bg-green-400 text-white px-4 py-2 rounded">Activo</a>

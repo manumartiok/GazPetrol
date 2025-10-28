@@ -1,3 +1,4 @@
+
 <nav class="bg-white shadow px-6 py-4 flex justify-between items-center">
   <div class="flex items-center gap-4">
     <button id="toggleSidebar" class="text-gray-600 hover:text-gray-900 transition text-2xl">
@@ -8,12 +9,10 @@
   <!-- User Profile Section -->
   <div class="relative">
     <button id="userMenuBtn" class="flex items-center gap-3 hover:bg-gray-100 px-3 py-2 rounded-lg transition">
-      <div class="text-right">
-        <p class="font-semibold text-gray-800">nombre</p>
-        <p class="text-xs text-gray-500">admin</p>
-      </div>
-      <img src="" 
-           alt="Avatar" class="w-10 h-10 rounded-full">
+    <div class="text-right">
+        <p class="font-semibold text-gray-800">{{ Auth::check() ? Auth::user()->usuario : 'Invitado' }}</p>
+        <p class="text-xs text-gray-500">{{ Auth::check() ? Auth::user()->rol : '' }}</p>
+    </div>
     </button>
 
     <!-- Dropdown Menu -->

@@ -13,19 +13,6 @@
         <form method="POST" action="{{ route('adm.perfil-update') }}" enctype="multipart/form-data">
             @csrf
 
-            {{-- Imagen --}}
-            <div class="mb-4">
-                <label class="block text-gray-700 font-medium mb-2">Imagen del perfil</label>
-
-                @if ($usuario->foto)
-                    <img :src="foto.foto ||  '{{ $usuario->foto }}'" alt="Foto Usuario"
-                         class="w-20 h-20 rounded-full object-cover mb-3">
-                @endif
-
-                <input type="file" name="foto" @change="subirFoto"
-                    class="w-full border border-gray-300 rounded px-4 py-2 focus:ring-2 focus:ring-blue-500">
-            </div>
-
             {{-- Datos básicos --}}
             <div class="flex w-full gap-20">
                 <div class="mb-4 w-1/2">
