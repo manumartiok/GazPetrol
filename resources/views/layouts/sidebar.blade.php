@@ -4,7 +4,7 @@
 <aside id="sidebar" class="w-64 bg-gray-800 text-white min-h-screen p-4 sidebar-transition overflow-hidden">
   <div>
     <div class="flex flex-col items-center mb-4">
-     <a href="{{route('adm.dashboard')}}"><img src="{{$logos->foto_nav}}" alt="Logo" class="h-[40px]"></a> 
+     <a href="{{route('adm.dashboard')}}"><img src="{{$logos->foto_nav}}" alt="Logo" class="h-[40px] mb-[10px]"></a> 
       <h2 class="text-xl font-bold ml-2">Administrador</h2>
     </div>
   </div>
