@@ -15,7 +15,7 @@
         <div class="mx-20 pt-6" >
             <div class="border rounded p-4">
                 <div>
-                    <h3>Editar Nosotros</h3>
+                    <h3 class="text-[18px] font-semibold  text-gray-600">Editar Nosotros</h3>
                 </div>
                 <hr class="my-3">
                 
@@ -25,9 +25,9 @@
 
                     <div>
                         <div class="mb-4">
-                            <label class="form-label" for="">Video (recomendado 1224x688)</label>
+                            <label class="form-label  text-gray-700 font-medium mb-2" for="">Video (recomendado 1224x688)</label>
                             @if (!empty($nosotro->video))
-                                <video autoplay loop muted playsinline  class="mb-3 w-full max-w-[1224px] h-[688px] object-cover mx-auto">
+                                <video autoplay loop muted playsinline  class="mb-3 mt-2 w-full max-w-[1224px] h-[688px] object-cover mx-auto">
                                     <source src="{{ $nosotro->video }}" type="video/mp4">
                                     Tu navegador no soporta el video.
                                 </video>
@@ -39,7 +39,7 @@
                         <label class="block text-gray-700 font-medium mb-2" for="foto">Foto (recomendado 600x722)</label>
 
                             @if (!empty($nosotro->foto))
-                                <img :src="foto.foto || '{{ $nosotro->foto }}'" alt="Foto" class="mb-3 w-full max-w-[600px] h-[722px] object-cover">
+                                <img :src="foto.foto || '{{ $nosotro->foto }}'" alt="Foto" class="mb-3 w-full max-w-[200px] max-h-[160px] object-cover">
                             @endif
 
                             <input type="file" name="foto" id="foto" @change="subirFoto"

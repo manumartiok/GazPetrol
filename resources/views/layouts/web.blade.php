@@ -12,8 +12,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
      <!-- Titulo -->
     <title>@yield('title')</title>
+
+    {{-- Metadatos dinámicos --}}
+    @php
+        // Obtener metadatos según la sección actual
+        $currentRoute = request()->route() ? request()->route()->getName() : null;
+        $metadato = \App\Models\Metadato::where('seccion', $currentRoute)->first();
+    @endphp
+
+    @if($metadato)
+        <meta name="description" content="{{ $metadato->descripcion }}">
+        <meta name="keywords" content="{{ $metadato->keywords }}">
+    @else
+        {{-- Metadatos por defecto --}}
+        <meta name="description" content="GazPetrol - Comercialización de hidrocarburos, productos y servicios.">
+        <meta name="keywords" content="GazPetrol, hidrocarburos, energía, combustible">
+    @endif
+
     {{-- favicon  --}}
     <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png')}}">
     <!-- Cargar jQuery primero -->
@@ -101,12 +119,12 @@
                 <ul class="flex flex-col gap-[30px]">
                     <h3 class="text-[20px] font-[700]">Secciones</h3>
                     <div class="flex flex-col justify-between text-[16px] h-[200px] max-w-[132px]">
-                            <li><a href="{{route('nosotros')}}">Nosotros</a></li>
-                            <li><a href="{{route('comercializacion')}}"></a>Comercialización de Hidrocarburos</li>
-                            <li><a href="{{route('productos')}}"></a>Productos</li>
-                            <li><a href="{{route('clientes')}}"></a>Clientes</li>
-                            <li><a href="{{route('institucional')}}"></a>Institucional</li>
-                            <li><a href="{{route('contacto')}}"></a>Contacto</li>
+                            <li><a href="{{route('nosotros')}}" class=" hover:underline">Nosotros</a></li>
+                            <li><a href="{{route('comercializacion')}}" class=" hover:underline">Comercialización de Hidrocarburos</a></li>
+                            <li><a href="{{route('productos')}}" class=" hover:underline">Productos</a></li>
+                            <li><a href="{{route('clientes')}}" class=" hover:underline">Clientes</a></li>
+                            <li><a href="{{route('institucional')}}" class=" hover:underline">Institucional</a></li>
+                            <li><a href="{{route('contacto')}}" class=" hover:underline">Contacto</a></li>
                     </div>
                 </ul>
             </div>
@@ -127,7 +145,7 @@
                 <div class=" flex flex-col items-start gap-[20px] px-[5%] lg:px-[0%]">
                     @foreach($redes as $red)
                     <div class="flex gap-[10px] items-center">
-                       <i class="{{$red->icono}} text-white "></i><a href="{{$red->url}}"><h3 class=" ">{{$red->nombre}}</h3></a> 
+                       <i class="{{$red->icono}} text-white "></i><a href="{{$red->url}}" class=" hover:underline hover:scale-100"><h3 class=" ">{{$red->nombre}}</h3></a> 
                     </div>
                     @endforeach
                 </div>

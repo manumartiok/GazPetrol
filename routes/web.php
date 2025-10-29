@@ -107,6 +107,7 @@ Route::middleware(AdminAuth::class)->group(function () {
     Route::get('/admin/productos/destroy/{producto_id}', [ProductoController::class,'destroy'])->name('adm.productos-destroy');
     Route::get('/admin/productos/switch/{producto_id}', [ProductoController::class,'switch'])->name('adm.productos-switch');
     Route::post('/admin/productos/reordenar', [ProductoController::class, 'reordenar'])->name('adm.productos-reordenar');
+    Route::get('/admin/productos-ficha-destroy/{producto_id}', [ProductoController::class, 'destroyFichaTecnica'])->name('adm.productos-ficha-destroy');
 
 
     //productos fotos
@@ -114,6 +115,7 @@ Route::middleware(AdminAuth::class)->group(function () {
     Route::get('/admin/productos_foto/destroy/{producto_foto_id}', [ProductoFotoController::class,'destroy'])->name('adm.productos-fotos-destroy');
     Route::get('/admin/productos_foto/switch/{producto_foto_id}', [ProductoFotoController::class,'switch'])->name('adm.productos-fotos-switch');
     Route::post('/admin/productos_foto/reordenar', [ProductoFotoController::class, 'reordenar'])->name('adm.productos-fotos-reordenar');
+   
 
     //clientes
     Route::get('/admin/cliente', [ClienteController::class,'index'])->name('adm.clientes');

@@ -11,7 +11,7 @@
 
 <div class="mx-20 pt-6">
     <div class="border border-rounded p-4">
-        <h3>Editar servicio</h3>
+        <h3 class="text-[18px] font-semibold  text-gray-600">Editar servicio</h3>
         <hr class="my-3">
         
         <form method="POST" action="{{ route('adm.servicios-update') }}">

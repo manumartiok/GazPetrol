@@ -7,7 +7,7 @@
 <div class="mx-20" id="app">
     <h1 class="mb-4 text-[20px] font-bold text-gray-500">Perfil</h1>
     <div class="border border-rounded p-4">
-        <h3>Detalles del perfil</h3>
+        <h3 class="text-[18px] font-semibold  text-gray-600">Detalles del perfil</h3>
         <hr class="my-3">
 
         <form method="POST" action="{{ route('adm.perfil-update') }}" enctype="multipart/form-data">
@@ -32,7 +32,7 @@
 
             {{-- Contraseña --}}
             <div class="mb-4">
-                <h3>Actualizar contraseña</h3>
+                <h3 class="text-[18px] font-semibold  text-gray-600">Actualizar contraseña</h3>
             </div>
 
             <div class="flex w-full gap-20">

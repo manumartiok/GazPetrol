@@ -14,7 +14,7 @@
     <div class="mx-20 pt-6" id="app">
         <div class="border border-rounded p-4">
             <div>
-                <h3>Crear usuario</h3>
+                <h3 class="text-[18px] font-semibold  text-gray-600">Crear usuario</h3>
             </div>
             <hr class="my-3">
             

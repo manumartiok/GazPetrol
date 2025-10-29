@@ -14,7 +14,7 @@
     <div class="mx-20 pt-6" id="app">
         <div class="border border-rounded p-4">
             <div class="">
-                <h3>Editar Home</h3>
+                <h3 class="text-[18px] font-semibold  text-gray-600">Editar Home</h3>
             </div>
             <hr class="my-3">
             
@@ -24,10 +24,10 @@
 
                 <div>
                     <div class="mb-4">
-                    <label class="block text-gray-700 font-medium mb-2" for="foto">Foto (671x642)</label>
+                    <label class="block text-gray-700 font-medium mb-2" for="foto">Foto (recomendado 671x642)</label>
 
                     @if (!empty($home->foto))
-                        <img :src="foto.foto || '{{ $home->foto }}'" alt="Foto" class="mb-3 w-full max-w-[671] h-[642px] object-cover">
+                        <img :src="foto.foto || '{{ $home->foto }}'" alt="Foto" class="mb-3  max-w-[200] max-h-[160px] object-cover">
                     @endif
 
                     <input type="file" name="foto" id="foto" @change="subirFoto"

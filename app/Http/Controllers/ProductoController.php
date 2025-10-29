@@ -159,4 +159,42 @@ class ProductoController extends Controller
          'categorias', 'producto', 'productos', 'categoria_seleccionada'
     ));
     }
+
+    public function destroyFichaTecnica($producto_id)
+    {
+        $producto = Producto::find($producto_id);
+
+        if ($producto && !empty($producto->ficha_tecnica)) {
+            // Eliminar el archivo físico
+            $fichaTecnicaPath = str_replace('/storage/', '', $producto->ficha_tecnica);
+            if (Storage::disk('public')->exists($fichaTecnicaPath)) {
+                Storage::disk('public')->delete($fichaTecnicaPath);
+            }
+
+            // Limpiar el campo en la base de datos
+            $producto->ficha_tecnica = null;
+            $producto->save();
+
+            // Si es AJAX, devolver JSON
+            if (request()->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Ficha técnica eliminada correctamente'
+                ]);
+            }
+
+            return redirect()->route('adm.productos-editor', ['producto_id' => $producto_id])
+                ->with('success', 'Ficha técnica eliminada correctamente');
+        }
+
+        // Si es AJAX y no se encontró
+        if (request()->ajax()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Producto o ficha técnica no encontrada'
+            ], 404);
+        }
+
+        return redirect()->back()->with('error', 'Producto o ficha técnica no encontrada');
+    }
 }
