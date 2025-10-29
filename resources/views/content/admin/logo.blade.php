@@ -46,7 +46,7 @@
                     </div>
 
                 </div>
-                <button type="submit" class="border rounded p-4">Actualizar</button>
+                <button type="submit" class="border rounded p-4 bg-white">Actualizar</button>
             </form>
         </div>            
     </div>

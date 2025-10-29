@@ -62,7 +62,7 @@
                         <input type="file" name="ficha_tecnica" id="ficha_tecnica" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
                     </div>
                 </div>
-                <button type="submit" class="border rounded p-4">Crear</button>
+                <button type="submit" class="border rounded p-4 bg-white">Crear</button>
             </form>
         </div>     
     </div>

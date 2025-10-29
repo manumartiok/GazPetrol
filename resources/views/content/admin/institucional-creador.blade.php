@@ -45,7 +45,7 @@
                         <input type="hidden" name="texto" id="texto">
                     </div>
                 </div>
-                <button type="submit" class="border rounded p-4">Crear</button>
+                <button type="submit" class="border rounded p-4 bg-white">Crear</button>
             </form>
         </div>            
     </div>

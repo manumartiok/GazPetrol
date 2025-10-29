@@ -97,7 +97,7 @@
                         class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
                 </div>
 
-                <button type="submit" class="border rounded p-4">Actualizar</button>
+                <button type="submit" class="border rounded p-4 bg-white">Actualizar</button>
             </div>
         </form>
 
@@ -124,7 +124,7 @@
                 <p class="text-sm text-gray-500 mt-1">Las siguientes fotos tendrán orden consecutivo</p>
             </div>
 
-            <button type="submit" id="btn-subir-fotos" class="border rounded p-4">
+            <button type="submit" id="btn-subir-fotos" class="border rounded p-4 bg-white">
                 Agregar Fotos
             </button>
             <span id="loading-galeria" class="ml-3 text-gray-600 hidden">
