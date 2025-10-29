@@ -2,6 +2,8 @@
     $productos_ban = App\Models\ProductoBanner::first();
     $categorias = App\Models\Categoria::where('active', true)->orderBy('orden')->get();
     $otrosProductos = $producto->categoria->productos()->where('id', '!=', $producto->id)->take(3)->get();
+
+      $fotos_activas = $producto->fotos->where('active', true)->sortBy('orden');
 @endphp
 
 @extends('layouts.web')
@@ -96,10 +98,10 @@
             </div>
 
             {{-- Carrusel de fotos --}}
-            @if($producto->fotos->count() > 1)
+            @if($fotos_activas->count() > 1)
                 <div class="mt-4 max-w-[390px] overflow-x-auto">
                     <div class="flex gap-4 w-max pb-2">
-                        @foreach($producto->fotos as $foto)
+                        @foreach($fotos_activas as $foto)
                             <img src="{{ $foto->foto }}" 
                                 alt="imagen"
                                 class="w-[90px] h-[80px] object-cover rounded cursor-pointer border border-transparent hover:border-[#0A3858] transition-all duration-200 mini-foto">
