@@ -88,17 +88,19 @@
 
 
         <!-- Menú mobile -->
-        <div id="mobile-menu" class="hidden lg:hidden absolute top-[90px] left-0 w-full flex flex-col items-center gap-4 bg-white py-6 shadow-md z-40">
-            <a href="{{ route('nosotros') }}" class="text-[#0A3858] text-[16px] font-semibold hover:text-[#5FBB46]">Nosotros</a>
-            <a href="{{ route('comercializacion') }}" class="text-[#0A3858] text-[16px] font-semibold hover:text-[#5FBB46]">Comercialización de hidrocarburos</a>
-            <a href="{{ route('productos') }}" class="text-[#0A3858] text-[16px] font-semibold hover:text-[#5FBB46]">Productos</a>
-            <a href="{{ route('clientes') }}" class="text-[#0A3858] text-[16px] font-semibold hover:text-[#5FBB46]">Clientes</a>
-            <a href="{{ route('institucional') }}" class="text-[#0A3858] text-[16px] font-semibold hover:text-[#5FBB46]">Institucional</a>
-            <a href="{{ route('contacto') }}" class="text-[#0A3858] text-[16px] font-semibold hover:text-[#5FBB46]">Contacto</a>
-            
-            <a href="{{ route('solicitud') }}" class="mt-4 w-[225px] h-[41px] border border-[#0A3858] rounded-[20px] bg-[#0A3858] text-white flex justify-center items-center">
-                Solicitud de presupuesto
-            </a>
+        <div id="mobile-menu" class="hidden absolute top-[90px] left-0 w-full ">
+            <div class="flex flex-col items-center gap-4 bg-white py-6 shadow-md z-40">
+                <a href="{{ route('nosotros') }}" class="text-[#0A3858] text-[16px] font-semibold hover:text-[#5FBB46]">Nosotros</a>
+                <a href="{{ route('comercializacion') }}" class="text-[#0A3858] text-[16px] font-semibold hover:text-[#5FBB46]">Comercialización de hidrocarburos</a>
+                <a href="{{ route('productos') }}" class="text-[#0A3858] text-[16px] font-semibold hover:text-[#5FBB46]">Productos</a>
+                <a href="{{ route('clientes') }}" class="text-[#0A3858] text-[16px] font-semibold hover:text-[#5FBB46]">Clientes</a>
+                <a href="{{ route('institucional') }}" class="text-[#0A3858] text-[16px] font-semibold hover:text-[#5FBB46]">Institucional</a>
+                <a href="{{ route('contacto') }}" class="text-[#0A3858] text-[16px] font-semibold hover:text-[#5FBB46]">Contacto</a>
+                
+                <a href="{{ route('solicitud') }}" class="mt-4 w-[225px] h-[41px] border border-[#0A3858] rounded-[20px] bg-[#0A3858] text-white flex justify-center items-center">
+                    Solicitud de presupuesto
+                </a>
+            </div>
         </div>
         </nav>
 
