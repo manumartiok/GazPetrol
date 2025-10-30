@@ -50,7 +50,7 @@ class SolicitudBannerController extends Controller
         }
 
         $solicitudes_banners->save();
-
-        return redirect()->route('adm.solicitud-ban', ['solicitud_banners_id' => $solicitudes_banners->id]);
+        return redirect()->route('adm.solicitud-ban', ['solicitud_banners_id' => $solicitudes_banners->id])
+            ->with('success', 'Banner de solicitud actualizado correctamente.');
     }
 }

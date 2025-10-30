@@ -52,7 +52,7 @@
 
 
     {{-- nosotros --}}
-    <div class="flex flex-col lg:flex-row h-auto bg-[#0A3858] nunitosans text-white">
+    <div class="flex flex-col lg:flex-row h-auto bg-[#0A3858] lg:max-h-[650px] nunitosans text-white">
         <div class="w-full lg:w-1/2 flex flex-grow max-h-[600px] lg:max-h-none">
             <img src="{{$casa->foto}}" alt="Foto" class="w-full object-cover">
         </div>

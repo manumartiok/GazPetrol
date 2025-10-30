@@ -70,6 +70,7 @@ class NosotroController extends Controller
 
         $nosotros->save();
 
-        return redirect()->route('adm.nosotros', ['nosotro_id' => $nosotros->id]);
+        return redirect()->route('adm.nosotros', ['nosotro_id' => $nosotros->id])
+            ->with('success', 'Sección nosotros actualizada correctamente.');
     }
 }

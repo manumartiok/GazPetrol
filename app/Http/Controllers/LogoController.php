@@ -61,6 +61,7 @@ class LogoController extends Controller
 
         $logos->save();
 
-        return redirect()->route('adm.logo', ['logo_id' => $logos->id]);
+        return redirect()->route('adm.logo', ['logo_id' => $logos->id])
+            ->with('success', 'Logo actualizado correctamente.');
     }
 }

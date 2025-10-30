@@ -47,7 +47,7 @@ class ClienteController extends Controller
         }
 
         $clientes->save();
-        return redirect()->route('adm.clientes');
+        return redirect()->route('adm.clientes')->with('success', 'Cliente creado correctamente.');
     }
 
     public function show($clientes_id)
@@ -82,7 +82,8 @@ class ClienteController extends Controller
         }
 
         $clientes->save();
-        return redirect()->route('adm.clientes', ['cliente' => $clientes->id]);
+        return redirect()->route('adm.clientes', ['cliente' => $clientes->id])
+            ->with('success', 'Cliente actualizado correctamente.');
     }
 
     public function destroy($clientes_id)
@@ -99,7 +100,7 @@ class ClienteController extends Controller
             $clientes->delete();
         }
 
-        return redirect()->route('adm.clientes');
+        return redirect()->route('adm.clientes')->with('success', 'Cliente eliminado correctamente.');
     }
 
     public function switch($clientes_id)
@@ -107,7 +108,7 @@ class ClienteController extends Controller
         $clientes = Cliente::find($clientes_id);
         $clientes->active = !$clientes->active;
         $clientes->save();
-        return redirect()->route('adm.clientes');
+        return redirect()->route('adm.clientes')->with('success', 'Estado del cliente actualizado correctamente.');
     }
 
     public function destacado($clientes_id)
@@ -115,7 +116,7 @@ class ClienteController extends Controller
         $clientes = Cliente::find($clientes_id);
         $clientes->destacado = !$clientes->destacado;
         $clientes->save();
-        return redirect()->route('adm.clientes');
+        return redirect()->route('adm.clientes')->with('success', 'Destacado del cliente actualizado correctamente.');
     }
 
           public function reordenar(Request $request)
@@ -124,6 +125,6 @@ class ClienteController extends Controller
             \App\Models\Cliente::where('id', $clientes['id'])->update(['orden' => $clientes['orden']]);
         }
 
-        return response()->json(['success' => true]);
+        return response()->json(['success' => true, 'message' => 'Orden actualizado correctamente']);
     }  
 }

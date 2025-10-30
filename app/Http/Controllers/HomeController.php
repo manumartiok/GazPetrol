@@ -58,6 +58,7 @@ class HomeController extends Controller
 
         $homes->save();
 
-        return redirect()->route('adm.home', ['home_id' => $homes->id]);
+        return redirect()->route('adm.home', ['home_id' => $homes->id])
+            ->with('success', 'Página de inicio actualizada correctamente.');
     }
 }

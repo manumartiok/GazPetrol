@@ -56,8 +56,7 @@ class InstitucionalPersonaController extends Controller
 
         $personas->save();
 
-        return redirect()->route('adm.institucional-persona', [
-            'persona_id' => $personas->id
-        ]);
+        return redirect()->route('adm.institucional-persona', ['persona_id' => $personas->id])
+            ->with('success', 'Persona actualizada correctamente.');
     }
 }

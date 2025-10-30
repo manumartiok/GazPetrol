@@ -100,7 +100,8 @@ class ProductoFotoController extends Controller
         $productos_fotos->active = !$productos_fotos->active;
         $productos_fotos->save();
 
-        return redirect()->route('adm.productos-editor', ['producto_id' => $productos_fotos->productos_id]);
+        return redirect()->route('adm.productos-editor', ['producto_id' => $productos_fotos->productos_id])
+            ->with('success', 'Estado de la foto actualizado correctamente.');
     }
 
     public function reordenar(Request $request)
@@ -109,6 +110,6 @@ class ProductoFotoController extends Controller
             ProductoFoto::where('id', $foto['id'])->update(['orden' => $foto['orden']]);
         }
 
-        return response()->json(['success' => true]);
+        return response()->json(['success' => true, 'message' => 'Orden de fotos actualizado correctamente']);
     }
 }

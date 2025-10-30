@@ -11,8 +11,13 @@ class ProductoController extends Controller
 {
     public function index()
     {
-        $productos = Producto::orderBy('orden')->get();
-        return view('content.admin.producto', ['producto' => $productos]);
+        $categorias = Categoria::orderBy('orden')
+        ->with(['productos' => function ($q) {
+            $q->orderBy('orden');
+        }])
+        ->get();
+
+    return view('content.admin.producto', ['categorias' => $categorias]);
     }
 
     public function create()
@@ -64,7 +69,7 @@ class ProductoController extends Controller
         }
 
         $productos->save();
-        return redirect()->route('adm.productos');
+        return redirect()->route('adm.productos')->with('success', 'Acción realizada correctamente.');
     }
 
     public function show($productos_id)
@@ -117,7 +122,7 @@ class ProductoController extends Controller
     }
 
         $productos->save();
-        return redirect()->route('adm.productos', ['producto' => $productos->id]);
+        return redirect()->route('adm.productos', ['producto' => $productos->id])->with('success', 'Acción realizada correctamente.');
     }
 
     public function destroy($productos_id)
@@ -134,7 +139,7 @@ class ProductoController extends Controller
             $productos->delete();
         }
 
-        return redirect()->route('adm.productos');
+        return redirect()->route('adm.productos')->with('success', 'Acción realizada correctamente.');
     }
 
     public function switch($productos_id)
@@ -142,7 +147,7 @@ class ProductoController extends Controller
         $productos = Producto::find($productos_id);
         $productos->active = !$productos->active;
         $productos->save();
-        return redirect()->route('adm.productos');
+        return redirect()->route('adm.productos')->with('success', 'Acción realizada correctamente.');
     }
 
          public function reordenar(Request $request)
@@ -151,8 +156,8 @@ class ProductoController extends Controller
             \App\Models\Producto::where('id', $productos['id'])->update(['orden' => $productos['orden']]);
         }
 
-        return response()->json(['success' => true]);
-    }    
+        return response()->json(['success' => true, 'message' => 'Orden actualizado correctamente']);
+    }
 
     public function detalle($id, Request $request)
     {

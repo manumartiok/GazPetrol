@@ -72,8 +72,7 @@ class NewsletterController extends Controller
         if ($newsletter) {
             $newsletter->delete();
         }
-
-        return redirect()->route('adm.newsletter');
+        return redirect()->route('adm.newsletter')->with('success', 'Suscriptor eliminado correctamente.');
     }
 
     /**
@@ -86,8 +85,7 @@ class NewsletterController extends Controller
             $newsletter->active = !$newsletter->active;
             $newsletter->save();
         }
-
-        return redirect()->route('adm.newsletter');
+        return redirect()->route('adm.newsletter')->with('success', 'Estado del suscriptor actualizado correctamente.');
     }
 
     /**
@@ -99,7 +97,7 @@ class NewsletterController extends Controller
             Newsletter::where('id', $item['id'])->update(['orden' => $item['orden']]);
         }
 
-        return response()->json(['success' => true]);
+        return response()->json(['success' => true, 'message' => 'Orden actualizado correctamente']);
     }
 
     //      * Enviar newsletter a todos los suscriptores activos.

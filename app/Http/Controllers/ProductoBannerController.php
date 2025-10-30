@@ -46,6 +46,7 @@ class ProductoBannerController extends Controller
         $productos_banners->texto = $request->texto;
         $productos_banners->save();
 
-        return redirect()->route('adm.productos-ban', ['producto_banners_id' => $productos_banners->id]);
+        return redirect()->route('adm.productos-ban', ['producto_banners_id' => $productos_banners->id])
+            ->with('success', 'Banner de productos actualizado correctamente.');
     }
 }

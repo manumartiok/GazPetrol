@@ -44,20 +44,21 @@
             </thead>
 
             <tbody id="galeria-fotos" class="text-gray-600">
-                @php $index = 0; @endphp
-                @foreach($producto->groupBy(fn($p) => $p->categoria->categoria ?? 'Sin categoría') as $categoriaNombre => $productos)
-                    @php $index++; $groupId = 'grupo_' . $index; @endphp
-
-                    {{-- Encabezado clickeable --}}
-                    <tr class="bg-light cursor-pointer no-ordena" onclick="toggleGrupo('{{ $groupId }}')">
-                        <td colspan="6" class="px-4 py-3"><strong>{{ $categoriaNombre }}</strong></td>
+                @foreach($categorias as $catIndex => $categoria)
+                    {{-- Encabezado de categoría --}}
+                    <tr class="bg-gray-200 font-bold text-center no-ordena">
+                        <td colspan="6" class="px-4 py-2 text-gray-700">
+                            {{ $categoria->categoria ?? 'Sin categoría' }}
+                        </td>
                     </tr>
 
-                    {{-- Productos ocultos inicialmente --}}
-                    @foreach($productos as $producto)
-                        <tr class="border-t hover:bg-gray-50 grupo-producto {{ $groupId }} cursor-move"
-                            style="display: none;" data-id="{{$producto->id}}">
-                            <td class="px-4 py-3 text-center">{{$producto->orden}}</td>
+                    {{-- Productos de esta categoría --}}
+                    @foreach($categoria->productos as $prodIndex => $producto)
+                        <tr class="border-t hover:bg-gray-50 product-row cursor-move"
+                            data-id="{{ $producto->id }}"
+                            data-cat-index="{{ $catIndex }}"
+                            data-prod-index="{{ $prodIndex }}">
+                            <td class="px-4 py-3 text-center orden-celda">{{$producto->orden}}</td>
                             <td class="px-4 py-3 w-64 max-w-64 truncate text-center nombre-producto">{{$producto->nombre}}</td>
                             <td class="px-4 py-3 text-center">
                                 @if ($producto->foto_producto)
@@ -85,24 +86,15 @@
                         </tr>
                     @endforeach
                 @endforeach
-            </tbody>  
+            </tbody>
         </table>
     </div>
 </div>
 
 <script>
-function toggleGrupo(groupClass) {
-    const rows = document.querySelectorAll('.' + groupClass);
-    rows.forEach(row => {
-        row.style.display = row.style.display === 'none' ? 'table-row' : 'none';
-    });
-}
-
-// Buscador de productos
 function filtrarProductos() {
-    const input = document.getElementById('buscador');
-    const filtro = input.value.toLowerCase();
-    const filas = document.querySelectorAll('.grupo-producto');
+    const filtro = document.getElementById('buscador').value.toLowerCase();
+    const filas = document.querySelectorAll('#galeria-fotos tr.product-row');
 
     filas.forEach(fila => {
         const nombre = fila.querySelector('.nombre-producto').textContent.toLowerCase();
@@ -111,7 +103,59 @@ function filtrarProductos() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    activarOrdenDragDrop('#galeria-fotos', '{{ route('adm.productos-reordenar') }}');
+    const tbody = document.querySelector('#galeria-fotos');
+    if (!tbody) return;
+
+    Sortable.create(tbody, {
+        animation: 150,
+        handle: '.cursor-move',
+        draggable: 'tr',
+        filter: '.no-ordena',
+        onEnd: function () {
+            const filas = Array.from(tbody.querySelectorAll('tr.product-row'));
+            const grupos = {};
+            const orden = [];
+
+            // Agrupar productos por categoría
+            filas.forEach(fila => {
+                const catIndex = parseInt(fila.dataset.catIndex, 10);
+                if (!grupos[catIndex]) grupos[catIndex] = [];
+                grupos[catIndex].push(fila);
+            });
+
+            // Asignar orden por categoría
+            Object.keys(grupos).sort().forEach((catIndex, catPos) => {
+                const prefix = String.fromCharCode(65 + catPos); // A, B, C según categoría
+                grupos[catIndex].forEach((fila, prodIndex) => {
+                    const suffix = String.fromCharCode(65 + prodIndex); // A, B, C según posición
+                    const newOrder = prefix + suffix; // AA, AB, AC o BA, BB, BC
+
+                    // Actualizar celda de orden
+                    const celdaOrden = fila.querySelector('.orden-celda');
+                    if (celdaOrden) celdaOrden.textContent = newOrder;
+
+                    // Agregar al array de actualización
+                    orden.push({
+                        id: fila.dataset.id,
+                        orden: newOrder
+                    });
+                });
+            });
+
+            // Enviar actualización al servidor
+            fetch('{{ route('adm.productos-reordenar') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                },
+                body: JSON.stringify({ orden })
+            })
+            .then(r => r.json())
+            .then(() => console.log('Orden actualizado correctamente'))
+            .catch(err => console.error('Error al actualizar el orden:', err));
+        }
+    });
 });
 </script>
 

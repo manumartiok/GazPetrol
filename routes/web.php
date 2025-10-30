@@ -265,4 +265,37 @@ Route::post('/contacto/enviar', [FormController::class, 'contacto'])->name('form
 Route::post('/solicitud/enviar', [FormController::class, 'solicitud'])->name('form.solicitud');
 
 
+// Route::get('install-storage', function () {
+
+//     \Artisan::call('clear-compiled');
+
+//     \Artisan::call('cache:clear');
+
+//     \Artisan::call('config:clear');
+
+//     \Artisan::call('optimize:clear');
+
+//     \Artisan::call('route:clear');
+
+//     \Artisan::call('view:clear');
+
+//     \Artisan::call('migrate:fresh');
+
+//     \Artisan::call('storage:link');
+
+
+
+
+
+//     $storage_path = storage_path('app/public');
+
+//     $public_path = realpath(base_path().'/public_html') . 'storage';
+
+
+
+//     symlink($storage_path, $public_path);
+
+
+
+// });
 

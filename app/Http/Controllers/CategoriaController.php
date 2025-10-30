@@ -36,7 +36,7 @@ class CategoriaController extends Controller
         $categorias->color = $request->color;
 
         $categorias->save();
-    return redirect()->route('adm.categorias');
+        return redirect()->route('adm.categorias')->with('success', 'Categoría creada correctamente.');
     }
 
     /**
@@ -64,7 +64,8 @@ class CategoriaController extends Controller
 
         $categorias->save();
 
-        return redirect()->route('adm.categorias', ['categoria' => $categorias->id]);
+        return redirect()->route('adm.categorias', ['categoria' => $categorias->id])
+            ->with('success', 'Categoría actualizada correctamente.');
     }
     
 
@@ -78,7 +79,7 @@ class CategoriaController extends Controller
         $categorias->delete();
     
         
-        return redirect()->route('adm.categorias');
+        return redirect()->route('adm.categorias')->with('success', 'Categoría eliminada correctamente.');
     }
       
 
@@ -86,7 +87,7 @@ class CategoriaController extends Controller
         $categorias=Categoria::find($categorias_id);
         $categorias->active= !$categorias->active;
         $categorias->save();
-        return redirect()->route('adm.categorias');
+        return redirect()->route('adm.categorias')->with('success', 'Estado de la categoría actualizado correctamente.');
       }
 
         public function reordenar(Request $request)
@@ -95,7 +96,7 @@ class CategoriaController extends Controller
             \App\Models\Categoria::where('id', $categorias['id'])->update(['orden' => $categorias['orden']]);
         }
 
-        return response()->json(['success' => true]);
+        return response()->json(['success' => true, 'message' => 'Orden actualizado correctamente']);
     }      
 
 }

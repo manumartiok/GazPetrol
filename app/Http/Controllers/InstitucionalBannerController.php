@@ -55,6 +55,6 @@ class InstitucionalBannerController extends Controller
 
         return redirect()->route('adm.institucional-ban', [
             'institucional_banners_id' => $institucionales_banners->id
-        ]);
+        ])->with('success', 'Banner institucional actualizado correctamente.');
     }
 }

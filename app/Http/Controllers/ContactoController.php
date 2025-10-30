@@ -42,6 +42,7 @@ class ContactoController extends Controller
 
         $contactos->save();
 
-        return redirect()->route('adm.contacto', ['contacto_id' => $contactos->id]);
+        return redirect()->route('adm.contacto', ['contacto_id' => $contactos->id])
+            ->with('success', 'Información de contacto actualizada correctamente.');
     }
 }

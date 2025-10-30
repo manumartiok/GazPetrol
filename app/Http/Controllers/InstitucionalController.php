@@ -46,7 +46,7 @@ class InstitucionalController extends Controller
         }
 
         $institucionales->save();
-        return redirect()->route('adm.institucional');
+        return redirect()->route('adm.institucional')->with('success', 'Item institucional creado correctamente.');
     }
 
     public function show($institucionales_id)
@@ -82,7 +82,8 @@ class InstitucionalController extends Controller
         }
 
         $institucionales->save();
-        return redirect()->route('adm.institucional', ['institucional' => $institucionales->id]);
+        return redirect()->route('adm.institucional', ['institucional' => $institucionales->id])
+            ->with('success', 'Item institucional actualizado correctamente.');
     }
 
     public function destroy($institucionales_id)
@@ -98,7 +99,7 @@ class InstitucionalController extends Controller
             $institucionales->delete();
         }
 
-        return redirect()->route('adm.institucional');
+        return redirect()->route('adm.institucional')->with('success', 'Item institucional eliminado correctamente.');
     }
 
     public function switch($institucionales_id)
@@ -107,7 +108,7 @@ class InstitucionalController extends Controller
         $institucionales->active = !$institucionales->active;
         $institucionales->save();
 
-        return redirect()->route('adm.institucional');
+        return redirect()->route('adm.institucional')->with('success', 'Estado del item actualizado correctamente.');
     }
 
     public function destacado($institucionales_id)
@@ -116,7 +117,7 @@ class InstitucionalController extends Controller
         $institucionales->destacado = !$institucionales->destacado;
         $institucionales->save();
 
-        return redirect()->route('adm.institucional');
+        return redirect()->route('adm.institucional')->with('success', 'Destacado actualizado correctamente.');
     }
 
     
@@ -126,6 +127,6 @@ class InstitucionalController extends Controller
             \App\Models\Institucional::where('id', $institucionales['id'])->update(['orden' => $institucionales['orden']]);
         }
 
-        return response()->json(['success' => true]);
+        return response()->json(['success' => true, 'message' => 'Orden actualizado correctamente']);
     }  
 }

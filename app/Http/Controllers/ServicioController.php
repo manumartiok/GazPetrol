@@ -28,7 +28,7 @@ class ServicioController extends Controller
         $servicio->nombre = $request->nombre;
         $servicio->save();
 
-        return redirect()->route('adm.servicios');
+        return redirect()->route('adm.servicios')->with('success', 'Servicio creado correctamente.');
     }
 
     /** Formulario para editar un servicio */
@@ -51,7 +51,7 @@ class ServicioController extends Controller
         $servicio->nombre = $request->nombre;
         $servicio->save();
 
-        return redirect()->route('adm.servicios');
+        return redirect()->route('adm.servicios')->with('success', 'Servicio actualizado correctamente.');
     }
 
     /** Eliminar servicio */
@@ -60,7 +60,7 @@ class ServicioController extends Controller
         $servicio = Servicio::find($servicio_id);
         $servicio->delete();
 
-        return redirect()->route('adm.servicios');
+        return redirect()->route('adm.servicios')->with('success', 'Servicio eliminado correctamente.');
     }
 
     /** Activar / Desactivar servicio */
@@ -70,7 +70,7 @@ class ServicioController extends Controller
         $servicio->active = !$servicio->active;
         $servicio->save();
 
-        return redirect()->route('adm.servicios');
+        return redirect()->route('adm.servicios')->with('success', 'Estado del servicio actualizado correctamente.');
     }
 
     /** Reordenar servicios (drag & drop) */

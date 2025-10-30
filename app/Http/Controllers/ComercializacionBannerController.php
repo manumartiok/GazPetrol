@@ -54,8 +54,7 @@ class ComercializacionBannerController extends Controller
 
         $comercios_banners->save();
 
-        return redirect()->route('adm.comercializacion-ban', [
-            'comercio_banners_id' => $comercios_banners->id
-        ]);
+        return redirect()->route('adm.comercializacion-ban', ['comercio_banners_id' => $comercios_banners->id])
+            ->with('success', 'Banner de comercialización actualizado correctamente.');
     }
 }

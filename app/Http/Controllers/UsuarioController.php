@@ -38,7 +38,7 @@ class UsuarioController extends Controller
         $usuarios->rol=$request->rol;
 
         $usuarios->save();
-    return redirect()->route('adm.usuarios');
+        return redirect()->route('adm.usuarios')->with('success', 'Usuario creado correctamente.');
     }
 
     /**
@@ -76,8 +76,7 @@ class UsuarioController extends Controller
         }
 
         $usuarios->save();
-
-        return redirect()->route('adm.usuarios', ['usuario' => $usuarios->id]);
+        return redirect()->route('adm.usuarios', ['usuario' => $usuarios->id])->with('success', 'Usuario actualizado correctamente.');
     }
     
 
@@ -89,7 +88,7 @@ class UsuarioController extends Controller
 
         $usuarios->delete();
     
-        return redirect()->route('adm.usuarios');
+        return redirect()->route('adm.usuarios')->with('success', 'Usuario eliminado correctamente.');
     }
       
 
@@ -97,6 +96,6 @@ class UsuarioController extends Controller
         $usuarios=Usuario::find($usuarios_id);
         $usuarios->active= !$usuarios->active;
         $usuarios->save();
-        return redirect()->route('adm.usuarios');
+        return redirect()->route('adm.usuarios')->with('success', 'Estado del usuario actualizado correctamente.');
       }
 }

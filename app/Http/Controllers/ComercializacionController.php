@@ -46,7 +46,7 @@ class ComercializacionController extends Controller
         }
 
         $comercios->save();
-        return redirect()->route('adm.comercializacion');
+        return redirect()->route('adm.comercializacion')->with('success', 'Item de comercialización creado correctamente.');
     }
 
     public function show($comercios_id)
@@ -82,7 +82,8 @@ class ComercializacionController extends Controller
         }
 
         $comercios->save();
-        return redirect()->route('adm.comercializacion', ['comercio' => $comercios->id]);
+        return redirect()->route('adm.comercializacion', ['comercio' => $comercios->id])
+            ->with('success', 'Item de comercialización actualizado correctamente.');
     }
 
     public function destroy($comercios_id)
@@ -99,7 +100,7 @@ class ComercializacionController extends Controller
             $comercios->delete();
         }
 
-        return redirect()->route('adm.comercializacion');
+        return redirect()->route('adm.comercializacion')->with('success', 'Item de comercialización eliminado correctamente.');
     }
 
     public function switch($comercios_id)
@@ -107,7 +108,8 @@ class ComercializacionController extends Controller
         $comercios = Comercializacion::find($comercios_id);
         $comercios->active = !$comercios->active;
         $comercios->save();
-        return redirect()->route('adm.comercializacion');
+        return redirect()->route('adm.comercializacion')
+            ->with('success', 'Estado del item de comercialización actualizado correctamente.');
     }
 
     
@@ -117,7 +119,7 @@ class ComercializacionController extends Controller
             \App\Models\Comercializacion::where('id', $comercios['id'])->update(['orden' => $comercios['orden']]);
         }
 
-        return response()->json(['success' => true]);
+        return response()->json(['success' => true, 'message' => 'Orden actualizado correctamente']);
     }      
 
 }

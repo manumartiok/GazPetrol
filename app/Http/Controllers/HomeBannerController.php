@@ -46,7 +46,7 @@ class HomeBannerController extends Controller
         }
 
         $home_banners->save();
-        return redirect()->route('adm.home-ban');
+        return redirect()->route('adm.home-ban')->with('success', 'Acción realizada correctamente.');
     }
 
     public function show($home_banners_id)
@@ -78,7 +78,7 @@ class HomeBannerController extends Controller
         }
 
         $home_banners->save();
-        return redirect()->route('adm.home-ban', ['home_banner' => $home_banners->id]);
+        return redirect()->route('adm.home-ban', ['home_banner' => $home_banners->id])->with('success', 'Acción realizada correctamente.');
     }
 
     public function destroy($home_banners_id)
@@ -95,7 +95,7 @@ class HomeBannerController extends Controller
             $home_banners->delete();
         }
 
-        return redirect()->route('adm.home-ban');
+        return redirect()->route('adm.home-ban')->with('success', 'Acción realizada correctamente.');
     }
 
     public function switch($home_banners_id)
@@ -112,6 +112,6 @@ class HomeBannerController extends Controller
             \App\Models\HomeBanner::where('id', $home_banners['id'])->update(['orden' => $home_banners['orden']]);
         }
 
-        return response()->json(['success' => true]);
+        return response()->json(['success' => true])->with('success', 'Acción realizada correctamente.');
     }   
 }

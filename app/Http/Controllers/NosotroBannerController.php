@@ -46,6 +46,7 @@ class NosotroBannerController extends Controller
         $nosotros_banners->texto = $request->texto;
         $nosotros_banners->save();
 
-        return redirect()->route('adm.nosotros-ban', ['nosotro_banners_id' => $nosotros_banners->id]);
+        return redirect()->route('adm.nosotros-ban', ['nosotro_banners_id' => $nosotros_banners->id])
+            ->with('success', 'Banner de nosotros actualizado correctamente.');
     }
 }

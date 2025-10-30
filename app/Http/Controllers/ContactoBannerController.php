@@ -53,8 +53,7 @@ class ContactoBannerController extends Controller
 
         $contactos_banners->save();
 
-        return redirect()->route('adm.contacto-ban', [
-            'contacto_banners_id' => $contactos_banners->id
-        ]);
+        return redirect()->route('adm.contacto-ban', ['contacto_banners_id' => $contactos_banners->id])
+            ->with('success', 'Banner de contacto actualizado correctamente.');
     }
 }

@@ -66,6 +66,7 @@ class ClienteBannerController extends Controller
     }
         $clientes_banners->save();
 
-        return redirect()->route('adm.clientes-ban', ['cliente_banners_id' => $clientes_banners->id]);
+        return redirect()->route('adm.clientes-ban', ['cliente_banners_id' => $clientes_banners->id])
+            ->with('success', 'Banner de clientes actualizado correctamente.');
     }
 }
