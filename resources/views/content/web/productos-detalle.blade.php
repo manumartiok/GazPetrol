@@ -26,7 +26,7 @@
 
     {{-- Breadcrumb --}}
     <div class="flex mb-[40px] text-[12px]">
-        <div class="font-bold">Inicio &gt; Productos &gt; {{ $producto->categoria->categoria }} &gt;</div>
+        <div class="font-bold"><a href="{{route("productos")}}">Inicio</a> &gt; <a href="{{route("productos")}}">Productos</a> &gt; {{ $producto->categoria->categoria }} &gt;</div>
         <div class="ml-1">{{$producto->nombre}}</div>
     </div>
 

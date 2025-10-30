@@ -24,14 +24,14 @@
 
                 <div>
                     <div class="mb-4">
-                    <label class="block text-gray-700 font-medium mb-2" for="foto_producto">Foto (recomendado 287x287)</label>
-                    <input type="file" name="foto_producto" id="foto_producto" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                    <label class="block text-gray-700 font-medium mb-2" for="foto_producto">Foto (recomendado 287x287) / (2MB tamaño máximo)</label>
+                    <input type="file" name="foto_producto" id="foto_producto" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required/>
                     </div>
 
                     <div class="mb-4">
                         <label class="block text-gray-700 font-medium mb-2" for="categoria_id">Categoría</label>
                         <select name="categoria_id" id="categoria_id"
-                            class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                             <option value="">Seleccionar categoría</option>
                             @foreach($categoria as $categoria)
                                 <option value="{{ $categoria->id }}">{{ $categoria->categoria }}</option>

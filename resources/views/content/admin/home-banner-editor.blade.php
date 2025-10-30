@@ -24,7 +24,7 @@
 
                 <div>
                     <div class="mb-4 ">
-                    <label class="block text-gray-700 font-medium mb-2" for="foto">Foto (recomendado 1366x768)</label>
+                    <label class="block text-gray-700 font-medium mb-2" for="foto">Foto (recomendado 1366x768) / (2MB tamaño máximo)</label>
 
                     @if (!empty($home_banner->foto))
                         <img :src="foto.foto || '{{ $home_banner->foto }}'" alt="Foto" class="mb-3  w-full max-w-[1366px] h-[768px] object-cover">

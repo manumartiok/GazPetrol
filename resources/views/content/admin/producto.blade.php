@@ -36,10 +36,9 @@
             <thead class="bg-gray-100">
                 <tr class="text-gray-700 text-sm uppercase">
                     <th class="px-4 py-3 text-center" style="width:10%;">Orden</th>
-                    <th class="px-4 py-3 text-center" style="width:20%;">Nombre</th>
-                    <th class="px-4 py-3 text-center" style="width:20%;">Foto</th>
-                    <th class="px-4 py-3 text-center" style="width:30%;">Detalle</th>
-                    <th class="px-4 py-3 text-center" style="width:10%;">Activo</th>
+                    <th class="px-4 py-3 text-center" style="width:25%;">Nombre</th>
+                    <th class="px-4 py-3 text-center" style="width:0%;">Foto</th>
+                    <th class="px-4 py-3 text-center" style="width:20%;">Activo</th>
                     <th class="px-4 py-3 text-center" style="width:10%;">Acciones</th>
                 </tr>
             </thead>
@@ -67,7 +66,6 @@
                                     <p>No hay imagen disponible.</p>
                                 @endif
                             </td>
-                            <td class="px-4 py-3 w-64 max-w-64 overflow-hidden text-center" style="max-height: 3.6em;">{!!$producto->detalle!!}</td>
                             <td class="px-4 py-3 text-center">
                                 @if ($producto->active)
                                     <a href="{{ route('adm.productos-switch', $producto->id) }}" class="badge bg-green-400 text-white px-4 py-2 rounded">

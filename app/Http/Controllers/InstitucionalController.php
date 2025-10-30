@@ -21,6 +21,10 @@ class InstitucionalController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'foto' => 'nullable|image|max:2048', // 2 MB = 2048 KB
+        ]);
+
         $institucionales = new Institucional();
         $institucionales->orden = $request->orden;
         $institucionales->titulo = $request->titulo;
@@ -53,6 +57,10 @@ class InstitucionalController extends Controller
 
     public function update(Request $request)
     {
+        $request->validate([
+            'foto' => 'nullable|image|max:2048', // 2 MB = 2048 KB
+        ]);
+        
         $institucionales = Institucional::find($request->institucionales_id) ?? new Institucional();
         $institucionales->orden = $request->orden;
         $institucionales->titulo = $request->titulo;

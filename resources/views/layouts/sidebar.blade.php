@@ -12,7 +12,6 @@
   
   <!-- Web Links -->
   <div class="mb-6">
-    <p class="text-xs text-gray-400 mb-3 px-3 font-semibold">CONTENIDO WEB</p>
     <ul>
       <li class="group">
         <button class="flex justify-between items-center w-full py-2 px-3 hover:bg-gray-700 rounded transition focus:outline-none" onclick="toggleSubMenu(this)">
@@ -111,7 +110,6 @@
 
   <!-- Configuración -->
   <div>
-    <p class="text-xs text-gray-400 mb-3 px-3 font-semibold">CONFIGURACIÓN</p>
     <ul>
       <li><a href="{{route('adm.newsletter')}}" class="block py-2 px-3 hover:bg-gray-700 rounded transition"><i class="fa-solid fa-newspaper mr-2"></i>Newsletter</a></li>
       <li><a href="{{route('adm.logo')}}" class="block py-2 px-3 hover:bg-gray-700 rounded transition"><i class="fas fa-image mr-2"></i>Logos</a></li>

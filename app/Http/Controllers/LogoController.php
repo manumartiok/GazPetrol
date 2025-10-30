@@ -22,6 +22,11 @@ class LogoController extends Controller
      */
     public function update(Request $request)
     {
+        $request->validate([
+            'foto_nav' => 'nullable|image|max:2048', // 2 MB = 2048 KB
+            'foto_footer' => 'nullable|image|max:2048', // 2 MB = 2048 KB
+        ]);
+
         $logos = Logo::find($request->logos_id) ?? new Logo();
 
         // Manejo de foto_nav

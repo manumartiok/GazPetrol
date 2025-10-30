@@ -21,7 +21,7 @@
                 {{ $errors->first() }}
             </div>
         @endif
-        <div><img src="{{ asset('assets/img/gazpetrol.png')}}" alt="Foto" class="w-[240px] h-[90px]"></div>
+        <div><img src="{{ asset('assets/img/gazpetrol.png')}}" alt="Foto" class="w-[222px] h-[53px]"></div>
         <div class="bg-white p-8 w-1/3 rounded-xl shadow-md  mb-[70px]">
             {{-- Login Form --}}
             <form id="loginForm" action="{{ route('login.post') }}" method="POST">
@@ -35,9 +35,6 @@
                     <input type="password" name="contraseña" id="contraseña" class="w-full border rounded p-2" required>
                 </div>
                 <button type="submit" class="w-full bg-black text-white p-2 rounded hover:scale-105 transition-transform duration-300 ">Ingresar</button>
-                <p class="mt-4 text-center text-sm hover:scale-105 transition-transform duration-300">
-                    <a href="#" id="showResetForm" class="">¿Olvidaste tu contraseña?</a>
-                </p>
             </form>
 
             {{-- Password Reset Form --}}

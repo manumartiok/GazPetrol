@@ -67,12 +67,17 @@
                 </div>
             </div>
             {{-- video  --}}
-            <div>
-               <video src="{{ $nosotros->video }}" class="w-full  mx-auto h-auto lg:h-[688px]" controls  {{-- muestra los controles de reproducción --}}
-                    preload="metadata"  {{-- carga solo metadatos al inicio --}}> 
-                    Tu navegador no soporta la etiqueta video.
-                </video>
-            </div>
+            @if (!empty($nosotros->video))
+                <div>
+                    <video 
+                        src="{{ $nosotros->video }}" 
+                        class="w-full mx-auto h-auto lg:h-[688px]" 
+                        controls
+                        preload="metadata">
+                        Tu navegador no soporta la etiqueta video.
+                    </video>
+                </div>
+            @endif
         </div>
     </div>
 </div>

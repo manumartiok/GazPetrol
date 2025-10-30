@@ -25,7 +25,7 @@
             <div>
                 {{-- Foto producto --}}
                 <div class="mb-4">
-                    <label class="block text-gray-700 font-medium mb-2" for="foto_producto">Foto (recomendado 287x287)</label>
+                    <label class="block text-gray-700 font-medium mb-2" for="foto_producto">Foto (recomendado 287x287) / (2MB tamaño máximo)</label>
 
                     @if (!empty($producto->foto_producto))
                         <img :src="foto.foto_producto || '{{ $producto->foto_producto }}'" alt="Foto" class="mb-3 w-full max-w-[287px] h-[287px] object-cover">
@@ -110,7 +110,7 @@
 
             <div class="mb-4">
                 <label class="block text-gray-700 font-medium mb-2" for="fotos">
-                    Galería (recomendado 392x380) - Puedes seleccionar múltiples fotos
+                    Galería (recomendado 392x380) - Puedes seleccionar múltiples fotos -  (2MB tamaño máximo)
                 </label>
                 <input type="file" name="fotos[]" id="fotos" multiple accept="image/*"
                     class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required/>

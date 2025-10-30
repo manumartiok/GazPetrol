@@ -29,6 +29,10 @@ class InstitucionalBannerController extends Controller
      */
     public function update(Request $request)
     {
+        $request->validate([
+            'foto' => 'nullable|image|max:2048', // 2 MB = 2048 KB
+        ]);
+        
         $institucionales_banners = InstitucionalBanner::find($request->institucionales_banners_id) ?? new InstitucionalBanner();
         $institucionales_banners->texto = $request->texto;
 

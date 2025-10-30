@@ -23,6 +23,10 @@ class ProductoController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'foto_producto' => 'nullable|image|max:2048', // 2 MB = 2048 KB
+        ]);
+
         $productos = new Producto();
         $productos->categoria_id = $request->categoria_id;
         $productos->orden = $request->orden;
@@ -72,6 +76,10 @@ class ProductoController extends Controller
 
     public function update(Request $request)
     {
+        $request->validate([
+            'foto_producto' => 'nullable|image|max:2048', // 2 MB = 2048 KB
+        ]);
+
         $productos = Producto::find($request->productos_id) ?? new Producto();
         $productos->categoria_id = $request->categoria_id;
         $productos->orden = $request->orden;

@@ -24,7 +24,7 @@
 
                 <div>
                     <div class="mb-4">
-                    <label class="block text-gray-700 font-medium mb-2" for="foto">Foto (recomendado 184x141)</label>
+                    <label class="block text-gray-700 font-medium mb-2" for="foto">Foto (recomendado 184x141) / (2MB tamaño máximo)</label>
 
                     @if (!empty($cliente->foto))
                         <img :src="foto.foto || '{{ $cliente->foto }}'" alt="Foto" class="mb-3 w-full max-w-[184px] h-[141px] object-cover">

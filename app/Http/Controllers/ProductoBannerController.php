@@ -22,6 +22,10 @@ class ProductoBannerController extends Controller
      */
     public function update(Request $request)
     {
+        $request->validate([
+            'foto' => 'nullable|image|max:2048', // 2 MB = 2048 KB
+        ]);
+        
         $productos_banners = ProductoBanner::find($request->productos_banners_id) ?? new ProductoBanner();
 
         // Manejo de la imagen

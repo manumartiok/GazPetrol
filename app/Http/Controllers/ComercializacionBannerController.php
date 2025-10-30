@@ -29,6 +29,10 @@ class ComercializacionBannerController extends Controller
      */
     public function update(Request $request)
     {
+        $request->validate([
+            'foto' => 'nullable|image|max:2048', // 2 MB = 2048 KB
+        ]);
+
         $comercios_banners = ComercializacionBanner::find($request->comercios_banners_id) ?? new ComercializacionBanner();
         $comercios_banners->texto = $request->texto;
 

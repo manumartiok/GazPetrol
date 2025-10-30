@@ -21,6 +21,10 @@ class ComercializacionController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'foto' => 'nullable|image|max:2048', // 2 MB = 2048 KB
+        ]);
+
         $comercios = new Comercializacion();
         $comercios->orden = $request->orden;
         $comercios->titulo = $request->titulo;
@@ -53,6 +57,10 @@ class ComercializacionController extends Controller
 
     public function update(Request $request)
     {
+        $request->validate([
+            'foto' => 'nullable|image|max:2048', // 2 MB = 2048 KB
+        ]);
+        
         $comercios = Comercializacion::find($request->comercios_id) ?? new Comercializacion();
         $comercios->orden = $request->orden;
         $comercios->titulo = $request->titulo;

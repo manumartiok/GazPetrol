@@ -22,6 +22,10 @@ class NosotroBannerController extends Controller
      */
     public function update(Request $request)
     {
+        $request->validate([
+            'foto' => 'nullable|image|max:2048', // 2 MB = 2048 KB
+        ]);
+
         $nosotros_banners = NosotroBanner::find($request->nosotros_banners_id) ?? new NosotroBanner();
 
         // Manejo de la imagen

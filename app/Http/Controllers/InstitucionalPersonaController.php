@@ -29,6 +29,10 @@ class InstitucionalPersonaController extends Controller
      */
     public function update(Request $request)
     {
+        $request->validate([
+            'foto' => 'nullable|image|max:2048', // 2 MB = 2048 KB
+        ]);
+        
         $personas = InstitucionalPersona::find($request->personas_id) ?? new InstitucionalPersona();
         $personas->nombre = $request->nombre;
         $personas->cargo = $request->cargo;

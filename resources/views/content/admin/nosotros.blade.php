@@ -36,7 +36,7 @@
                         </div>
 
                         <div class="mb-4">
-                        <label class="block text-gray-700 font-medium mb-2" for="foto">Foto (recomendado 600x722)</label>
+                        <label class="block text-gray-700 font-medium mb-2" for="foto">Foto (recomendado 600x722) / (2MB tamaño máximo)</label>
 
                             @if (!empty($nosotro->foto))
                                 <img :src="foto.foto || '{{ $nosotro->foto }}'" alt="Foto" class="mb-3 w-full max-w-[200px] max-h-[160px] object-cover">
@@ -85,7 +85,7 @@
 
                         {{-- Logo 1 --}}
                         <div class="mb-4">
-                            <label class="block text-gray-700 font-medium mb-2" for="foto">Logo 1 (recomendado 50x50)</label>
+                            <label class="block text-gray-700 font-medium mb-2" for="foto">Logo 1 (recomendado 50x50) / (2MB tamaño máximo)</label>
                             @if (!empty($nosotro->icono1))
                                 <img :src="foto.icono1 || '{{ $nosotro->icono1 }}'" alt="Foto"  class="mb-3 w-full max-w-[50px] h-[50px] object-cover">
                             @endif
@@ -109,7 +109,7 @@
 
                         {{-- Logo 2 --}}
                         <div class="mb-4">
-                            <label class="block text-gray-700 font-medium mb-2" for="foto">Logo 2 (recomendado 50x50)</label>
+                            <label class="block text-gray-700 font-medium mb-2" for="foto">Logo 2 (recomendado 50x50) / (2MB tamaño máximo)</label>
                             @if (!empty($nosotro->icono2))
                                 <img :src="foto.icono2 || '{{ $nosotro->icono2 }}'" alt="Foto"  class="mb-3 w-full max-w-[50px] h-[50px] object-cover">
                             @endif
@@ -133,7 +133,7 @@
 
                         {{-- Logo 3 --}}
                         <div class="mb-4">
-                            <label class="block text-gray-700 font-medium mb-2" for="foto">Logo 3 (recomendado 50x50)</label>
+                            <label class="block text-gray-700 font-medium mb-2" for="foto">Logo 3 (recomendado 50x50) / (2MB tamaño máximo)</label>
                             @if (!empty($nosotro->icono3))
                                 <img :src="foto.icono3 || '{{ $nosotro->icono3 }}'" alt="Foto"  class="mb-3 w-full max-w-[50px] h-[50px] object-cover">
                             @endif

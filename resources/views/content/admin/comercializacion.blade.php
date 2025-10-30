@@ -21,7 +21,6 @@
                 <th class="px-4 py-3 text-left">Orden</th>
                 <th class="px-4 py-3 text-left">Foto</th>
                 <th class="px-4 py-3 text-left">Titulo</th>
-                <th class="px-4 py-3 text-center">Texto</th>
                 <th class="px-4 py-3 text-center">Activo</th>
                 <th class="px-4 py-3 text-center">Acciones</th>
                 </tr>
@@ -39,7 +38,6 @@
                     @endif
                 </td>
                 <td class="px-4 py-3">{{$comercio->titulo}}</td>
-                <td class="px-4 py-3 w-64 max-w-64 truncate">{!! $comercio->texto !!}</td>
                 <td class="px-4 py-3 text-center">
                   @if ($comercio->active)
                   <a href="{{route('adm.comercializacion-switch', $comercio->id)}}" class="badge bg-green-400 text-white px-4 py-2 rounded">Activo</a>

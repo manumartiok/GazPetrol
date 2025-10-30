@@ -55,7 +55,7 @@
     <!-- header --> 
 
      <!-- navbar -->
-        <nav class="fixed top-0 left-0 w-full z-50">
+        <nav class="fixed top-0 left-0 w-full z-50 bg-[#0A3858]">
         <div id="navbar" class="nav-layout nunitosans flex items-center text-white justify-between mx-auto px-[73px] max-w-[1366px] h-[90px] gap-[80px]">
             
             <!-- Logo -->
@@ -81,7 +81,10 @@
                 <a href="{{ route('contacto') }}" class="{{ Request::is('contacto') ? 'font-bold' : '' }}">Contacto</a>
             </div>
 
-            <a href="{{ route('solicitud') }}" class="max-w-[225px] w-full h-[41px] border rounded-[20px] bg-white text-[#0A3858] flex justify-center items-center ">
+            <a href="{{ route('solicitud') }}" class="max-w-[225px] w-full h-[41px] border rounded-[20px] flex justify-center items-center transition
+            {{ Request::is('solicitud') 
+            ? 'bg-[#0A3858] text-white border-white' 
+            : 'bg-white text-[#0A3858] border-[#0A3858]' }}">
                Solicitud de presupuesto
             </a>
         </div>

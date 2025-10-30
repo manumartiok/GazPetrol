@@ -27,6 +27,10 @@ class SolicitudBannerController extends Controller
      */
     public function update(Request $request)
     {
+        $request->validate([
+            'foto' => 'nullable|image|max:2048', // 2 MB = 2048 KB
+        ]);
+        
         $solicitudes_banners = SolicitudBanner::find($request->solicitudes_banners_id) ?? new SolicitudBanner();
         $solicitudes_banners->texto = $request->texto;
 

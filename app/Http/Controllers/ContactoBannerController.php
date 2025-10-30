@@ -29,6 +29,10 @@ class ContactoBannerController extends Controller
      */
     public function update(Request $request)
     {
+        $request->validate([
+            'foto' => 'nullable|image|max:2048', // 2 MB = 2048 KB
+        ]);
+        
         $contactos_banners = ContactoBanner::find($request->contactos_banners_id) ?? new ContactoBanner();
         $contactos_banners->texto = $request->texto;
 

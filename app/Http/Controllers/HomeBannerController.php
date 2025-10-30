@@ -21,6 +21,10 @@ class HomeBannerController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'foto' => 'nullable|image|max:2048', // 2 MB = 2048 KB
+        ]);
+
         $home_banners = new HomeBanner();
         $home_banners->orden = $request->orden;
         $home_banners->titulo = $request->titulo;

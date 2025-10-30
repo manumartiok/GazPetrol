@@ -6,7 +6,7 @@
 
    {{-- cabezal --}}
     <div>
-        <h3 class="text-[20px] font-bold text-gray-500">Editar seccion Home</h3>
+        <h3 class="text-[20px] font-bold text-gray-500">Editar Home</h3>
         <hr class="mx-6">
     </div>
     
@@ -24,7 +24,7 @@
 
                 <div>
                     <div class="mb-4">
-                    <label class="block text-gray-700 font-medium mb-2" for="foto">Foto (recomendado 671x642)</label>
+                    <label class="block text-gray-700 font-medium mb-2" for="foto">Foto (recomendado 671x642) / (2MB tamaño máximo)</label>
 
                     @if (!empty($home->foto))
                         <img :src="foto.foto || '{{ $home->foto }}'" alt="Foto" class="mb-3  max-w-[200] max-h-[160px] object-cover">

@@ -21,6 +21,11 @@ class ClienteController extends Controller
 
     public function store(Request $request)
     {
+
+        $request->validate([
+            'foto' => 'nullable|image|max:2048', // 2 MB = 2048 KB
+        ]);
+
         $clientes = new Cliente();
         $clientes->orden = $request->orden;
         $clientes->texto = $request->texto;
@@ -53,6 +58,10 @@ class ClienteController extends Controller
 
     public function update(Request $request)
     {
+        $request->validate([
+            'foto' => 'nullable|image|max:2048', // 2 MB = 2048 KB
+        ]);
+        
         $clientes = Cliente::find($request->clientes_id) ?? new Cliente();
         $clientes->orden = $request->orden;
         $clientes->texto = $request->texto;

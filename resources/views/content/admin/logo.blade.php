@@ -24,7 +24,7 @@
 
                 <div>
                     <div class="mb-4">
-                    <label class="block text-gray-700 font-medium mb-2" for="foto">Foto barra de navegacion (recomendado 222x53)</label>
+                    <label class="block text-gray-700 font-medium mb-2" for="foto">Foto barra de navegacion (recomendado 222x53) / (2MB tamaño máximo)</label>
 
                     @if (!empty($logo->foto_nav))
                         <img :src="foto.foto_nav || '{{ $logo->foto_nav }}'" alt="Foto" class="mb-3 w-full max-w-[222px] h-[53px] object-cover">
@@ -35,7 +35,7 @@
                     </div>
 
                      <div class="mb-4">
-                    <label class="block text-gray-700 font-medium mb-2" for="foto">Foto footer (recomendado 222x53)</label>
+                    <label class="block text-gray-700 font-medium mb-2" for="foto">Foto footer (recomendado 222x53) / (2MB tamaño máximo)</label>
 
                     @if (!empty($logo->foto_footer))
                         <img :src="foto.foto_footer || '{{ $logo->foto_footer}}'" alt="Foto" class="mb-3 w-full max-w-[222px] h-[53px] object-cover">
